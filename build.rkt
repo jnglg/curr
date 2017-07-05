@@ -446,8 +446,8 @@
         ; ideally, modify workbook build process to generate right filename from the
         ; outset.  In the meantime, this puts the right filename in the distribution
         ; the "when" is there to avoid error in reactive (which has no workbook yet)
-        (when (file-exists? (build-path output-resources-dir "workbook" "langs" (getenv "LANGUAGE")"workbook.pdf"))
-          (rename-file-or-directory (build-path output-resources-dir "workbook" "langs" (getenv "LANGUAGE") "workbook.pdf")
+        (when (file-exists? (build-path output-resources-dir "workbook" "workbook.pdf"))
+          (rename-file-or-directory (build-path output-resources-dir "workbook" "workbook.pdf")
                                     (build-path output-resources-dir "workbook" "StudentWorkbook.pdf")))
       
         (let ([sourcefiles (build-path output-resources-dir "source-files")]
