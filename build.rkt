@@ -555,7 +555,7 @@
       (putenv "RELEASE-STATUS" "mature")
       (build-exercise-handouts) ; not needed for reactive
       (workbook-styling-on)
-      (build-extra-pdf-exercises) ; not needed for reactive
+      ;(build-extra-pdf-exercises) ; not needed for reactive
       )
     (when (equal? course "reactive")
       (putenv "TARGET-LANG" "pyret")
