@@ -218,7 +218,7 @@
     ;Translator; This is found directly above the Glossary in the intro section. This indicates the total
                ; the total time of the unit lesson
     ;Developer; length-of-lesson
-    (length "Longitud")
+    (length "Duración")
     (minutes "Minutos")
 
     
