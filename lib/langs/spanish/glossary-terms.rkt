@@ -1,9 +1,11 @@
-#lang racket/base
+#|SPANISH
+Glossary for terminology used in the notes.  The first entry of each entry can be either
+a single string or a list of keys that map to the same definition.
 
-(provide glossary-terms-dictionary)
-
-(define glossary-terms-dictionary
-  '(("funciones de acceso" "funciones para extraer valores de una estructura de datos")
+If a list of keys is provided, the generated glossary will use the first in the list
+when it prints out the glossary for a particular unit
+|#
+(("funciones de acceso" "funciones para extraer valores de una estructura de datos")
     ("aplicando" "use una función dada en algunas entradas")
     ("argumentos" "las entradas de una función, las expresiones de los argumentos siguen el nombre de una función")
     ("booleano" "un tipo de datos con dos valores: true y false")
