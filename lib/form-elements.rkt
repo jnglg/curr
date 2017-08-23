@@ -32,6 +32,7 @@
 	 "math-rendering.rkt"
          "wescheme.rkt"
          "translator.rkt"
+         "warnings.rkt"
          (for-syntax syntax/parse)
          )
  
@@ -86,8 +87,7 @@
          lulu-button
          embedded-wescheme
                 
-         ;; lesson formatting 
-         lesson
+         ;; lesson formatting
          lesson/studteach
          pacing
          points
@@ -99,6 +99,10 @@
          csp-activity
          unit-descr
          main-contents
+         slidebreak
+         slideText
+         noSlideText
+         standard/slideText
          
          ;; Unit sections
          exercises
@@ -108,6 +112,7 @@
          preparation
          agenda
          copyright
+
          
          ;; Include lesson/lesson link
          include-lesson
@@ -128,16 +133,6 @@
          )        
 
 
-
-;;;;;;;;;;;; language-specific require ;;;;;;;;;;;;;;;;;;;;;;;
-(define-for-syntax language (getenv "LANGUAGE"))
-(define-syntax (choose stx)
-  (syntax-parse stx
-                 [(_  a b)
-                  (case language
-                    [("english") #'a]
-                    [("spanish") #'b])]))
-(choose (require "langs/english/glossary-terms.rkt") (require "langs/spanish/glossary-terms.rkt"))
 
 ;;;;;;;;;;;; Runtime paths and settings ;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -164,11 +159,16 @@
 (define bs-lesson-name-style (bootstrap-style "BSLessonName"))
 (define bs-lesson-duration-style (bootstrap-style "BSLessonDuration"))
 (define bs-video-style (bootstrap-style "BootstrapVideo"))
-(define bs-page-title-style (bootstrap-style "BootstrapPageTitle"))
+(define bs-page-title-style (bootstrap-div-style "BootstrapPageTitle"))
+(define bs-slide-title-style (bootstrap-style "BootstrapSlideTitle"))
+(define bs-skipSlide-style (bootstrap-div-style "BS-Skip-Slide"))
+(define bs-translation-buttons-style (bootstrap-span-style "TranslationButton"))
 
 (define bs-time-style (bootstrap-span-style "time"))
 (define bs-callout-style (bootstrap-div-style "callout"))
 (define bs-student-style (bootstrap-div-style "student"))
+(define bs-slideText-style (bootstrap-span-style "slideText"))
+(define bs-noSlideText-style (bootstrap-span-style "noSlideText"))
 (define bs-teacher-style (bootstrap-div-style "teacher"))
 (define bs-logo-style (bootstrap-span-style "BootstrapLogo"))
 (define bs-vocab-style (bootstrap-span-style "vocab"))
@@ -206,8 +206,22 @@
 
 ;;;;;;;;;;;;;; Lesson structuring ;;;;;;;;;;;;;;;;;;;;;;;
 
-(define (student . content)
-  (nested #:style bs-student-style (interleave-parbreaks/select content)))
+(define (student #:title (title #f)
+                 #:skipSlide? (skip? #f)
+                 . content)
+
+  
+  (let ([title-filtered (if title title (if NEW-LESSON? (first CURRENT-LESSON-LIST) #f))])
+
+  (set! NEW-LESSON? #f)
+    
+  (if skip?
+      (nested #:style bs-student-style (nested #:style bs-skipSlide-style (interleave-parbreaks/select
+                                    (if title-filtered (cons (slideText (elem #:style bs-slide-title-style title-filtered)) content)
+                                        content))))
+      (nested #:style bs-student-style (interleave-parbreaks/select
+                                    (if title-filtered (cons (slideText (elem #:style bs-slide-title-style title-filtered)) content)
+                                        content))))))
 
 (define (teacher . content)
   (nested #:style bs-teacher-style (interleave-parbreaks/select content)))
@@ -226,7 +240,12 @@
 (define (copyright . body)
   (para #:style (bootstrap-div-style/id "copyright")
    (hyperlink #:style bootstrap-hyperlink-style "http://creativecommons.org/licenses/by-nc-nd/4.0/" creativeCommonsLogo)
-   (translate 'copyright-names)
+   (cond
+     [(string=? (current-course) "algebra") (translate 'copyright-names-alg)]
+     [(string=? (current-course) "reactive") (translate 'copyright-names-reac)]
+     [(string=? (current-course) "data-science") (translate 'copyright-names-data)]
+     [(string=? (current-course) "physics") (translate 'copyright-names-phys)]
+     [else (WARNING (format "no copyright tag found for course: ~a" (current-course)) 'copyright)])
    (hyperlink #:style bootstrap-hyperlink-style "http://creativecommons.org/licenses/by-nc-nd/4.0/" (translate 'copyright-license))
    (string-append ". " (translate 'copyright-based) " ") (hyperlink "http://www.bootstrapworld.org/" "www.BootstrapWorld.org")
    (string-append ". " (translate 'copyright-permissions) " ")
@@ -246,8 +265,7 @@
             [checked-evidlist (foldr (lambda (evidtag result-rest)
                                        (if (get-evid-statement/tag evidtag) 
                                            (cons evidtag result-rest)
-                                           (begin ;(printf "WARNING: activity using invalid evidence tag ~a~n" evidtag)
-                                                  result-rest)))
+                                           result-rest))
                                      '() evidlist)])
          (when evidence (set! 'activity-evid (append checked-evidlist (get 'activity-evid '()))))
          (nested #:style (bootstrap-div-style style-tag)
@@ -284,9 +302,11 @@
                          (table-columns
                           (list 
                            (style "BootstrapTable" '(center))
+                           (style "BootstrapTable" '(center))
                            (style "BootstrapTable" '(center))))))   
                  (cons (list (para #:style "BootstrapTableHeader" (translate 'lang-table-types))
-                             (para #:style "BootstrapTableHeader" (translate 'lang-table-func)))
+                             (para #:style "BootstrapTableHeader" (translate 'lang-table-func))
+                             (para #:style "BootstrapTableHeader" (translate 'lang-table-vals)))
                        (map (lambda (r) (map para r)) rows)))))
 
 ;; build-table : list[string] list[list[element]] (number number -> element) 
@@ -327,6 +347,22 @@
                        (lambda (row-num) 
                          (map (lambda (col) (list-ref col row-num))
                               all-columns))))))
+;;allows for text to be presented only when in slide mode
+(define (slideText text) (elem #:style bs-slideText-style text))
+
+
+;;makes for easy use of slideText and noSlideText in the same place
+(define (standard/slideText #:slide slide #:standard standard)
+   (elem (slideText slide) (noSlideText standard)))
+
+
+;;uses slideText to give a newline break in slides
+(define slidebreak (slideText "\n  \n"))
+
+;;allows for text to appear only in standard display mode and not when in slide mode
+(define (noSlideText text) (elem #:style bs-noSlideText-style text))
+
+
 
 ;;;;;;;;;; Sections of Units ;;;;;;;;;;;;;;;;;;;;;;
 
@@ -423,7 +459,7 @@
 (define (singularize-vocab-terms strlist)
   (map (lambda (str) 
          (if (and (ends-in-s? str)
-                  (assoc (rem-last-char str) glossary-terms-dictionary))
+                  (assoc (rem-last-char str) (current-glossary-terms)))
              (rem-last-char str)
              str))
        strlist))
@@ -437,7 +473,7 @@
        (let* ([clean-terms (sort (remove-duplicates (singularize-vocab-terms (map string-downcase (get 'vocab-used '()))))
                                  string<=?)]
               [terms (lookup-tags clean-terms
-                                  glossary-terms-dictionary "Vocabulary term" #:show-unbound #t)])
+                                  (current-glossary-terms) "Vocabulary term" #:show-unbound #t)])
          (if (empty? terms) (para)
              (nested #:style (bootstrap-div-style/id/nested "Glossary")
                      (interleave-parbreaks/all
@@ -445,10 +481,10 @@
                        (para #:style bs-header-style/span (string-append (translate 'iHeader-glossary) ":"))
                        (apply itemlist/splicing
                               (for/list ([term terms])
+                                (when (and (list? term) (string=? "" (second term)))
+                                  (WARNING (format "Vocabulary term has empty definition in dictionary: ~a ~n" (first term)) 'vocab-terms))
                                 (cond [(and (list? term) (string=? "" (second term)))
-                                       (begin
-                                         (printf "WARNING: Vocabulary term has empty definition in dictionary: ~a ~n" (first term))
-                                         (glossary-entry (first term) #f))]
+                                         (glossary-entry (first term) #f)]
                                       ;; if glossary entry indexed on multiple words for same defn, use first one
                                       [(and (list? term) (cons? (first term)))
                                        (glossary-entry (first (first term)) (second term))]
@@ -467,67 +503,28 @@
                        anchor)   ;; string
   #:transparent)
 
-;;;;;;;;;;; OLD LESSON FORMAT ;;;;;;;;;;;;;;;;;;;;;
-
-;; This is currently used only in the teacher-notes.scrbl (for algebra).  Can remove this
-;; if ever convert those over to lesson/studteach
-
-;; lesson: #:title #:duration #:subsumes #:prerequisites #:video body ... -&gt; block
-;;
-;; Creates a lesson block; this block is hyperlinked.  Internally,
-;; it's a traverse-block.  In the traverse phase, we assign to
-;; 'bootstrap-lessons so that other phases can pick out which lessons
-;; have been defined.
-;;
-;; bootstrap-lessons is a (listof lesson-struct), whose structure should be
-;; defined right above us.
-(define (lesson #:title (title #f)
-                #:duration (duration #f)
-                #:subsumes (subsumes #f)
-                #:prerequisites (prerequisites #f)
-                #:video (video #f)
-                . body)
-  
-  (define the-lesson-name 
-    (or (current-lesson-name) 
-        (symbol->string (gensym (string->symbol (or title 'lesson))))))
-  
-  (define video-elem (cond [(and video (list? video))
-                            (map (lambda (v) (elem #:style bs-video-style v)) video)]
-                           [video (elem #:style bs-video-style video)]
-                           [else (elem)]))
-  (traverse-block
-   (lambda (get set!)
-     (define anchor (lesson-name->anchor-name the-lesson-name))
-     (set! 'bootstrap-lessons (cons (lesson-struct title
-                                                   duration
-                                                   anchor)
-                                    (get 'bootstrap-lessons '())))     
-     (nested-flow 
-      (style "BootstrapLesson" '())
-      (decode-flow
-       (list
-        (elem #:style (style #f (list (url-anchor anchor))))
-        (cond [(and title duration)
-               (para #:style bs-lesson-title-style
-                     (list (elem #:style bs-lesson-name-style title) 
-                           video-elem
-                           (elem #:style bs-lesson-duration-style (format "(Time ~a)" duration))))]
-              [title 
-               (para #:style bs-lesson-title-style
-                     (list (elem #:style bs-lesson-name-style title)
-                           video-elem))]
-              [duration 
-               (para #:style bs-lesson-title-style
-                     (list (elem #:style bs-lesson-name-style (format "Lesson "))
-                           video-elem
-                           (elem #:style bs-lesson-duration-style (format "(Time ~a)" duration))))])
-        (nested #:style (bootstrap-sectioning-style "BootstrapLesson")
-                body)))))))
-
 ;;;;;;;;;;;;; CURRENT LESSON FORMAT ;;;;;;;;;;;;;;;;;;
 
-(define (lesson/studteach
+;;says whether or not a new lesson has been found (for printing slide titles)
+(define NEW-LESSON? #t)
+;;holds the Current lesson name to print it in slide titles
+(define CURRENT-LESSON-LIST '())
+
+;;sets variables relevent to setting slide titles
+(define (set-everything! title)
+  (set! NEW-LESSON? #t)
+  (set! CURRENT-LESSON-LIST (cons title CURRENT-LESSON-LIST)))
+
+;;macro used to call set-everything! on the lesson title before the body of lesson/studteach is evaluated
+; This was added on 07/20/17 to add automatic slide titles at the beginning of every new lesson
+(define-syntax (lesson/studteach stx)
+  (syntax-case stx ()
+    [(_ #:title title opt ... . body) #'(begin
+                                          (set-everything! title)
+                                          (lesson/studteach/core #:title title opt ... . body))]))
+
+;;main function used in bootstrap files to create a Bootstrap Lesson.
+(define (lesson/studteach/core
          #:title (title #f)
          #:duration (duration #f)
          #:overview (overview "")
@@ -542,6 +539,12 @@
          #:video (video #f)
          #:pacings (pacings #f)
          . body)
+
+  (when prerequisites (for-each (lambda (prereq)
+                                (when (not (member prereq CURRENT-LESSON-LIST))
+                                  (WARNING (format "Could not find prerequisite ~a for lesson ~a in unit ~a of ~a\n"
+                                                   prereq title (current-unit) (current-course)) 'prereq)))
+                                prerequisites))
   
   (define the-lesson-name 
     (or (current-lesson-name) 
@@ -598,7 +601,7 @@
                            (interleave-parbreaks/all
                             (cons (para #:style bs-lesson-name-style 
                                         (interleave-parbreaks/all
-                                         (list (elem title) 
+                                         (list (elem #:style "Slide-Lesson-Title"  title)
                                                video-elem
                                                (cond [duration
                                                       (elem #:style bs-time-style (format (string-append "(" (translate 'sHeader-duration) " ~a)") duration))]
@@ -659,7 +662,7 @@
                       (let* ([usedevid (sort (get-used-evidnums/std (third lo) evid-used) <=)]
                              [keep-evid (map (lambda (keep-index) (list-ref (second lo) (sub1 keep-index))) usedevid)])
                         (when (empty? keep-evid)
-                          (printf "WARNING: Unit has no activities for evidence statments under listed standard ~a~n" (third lo)))
+                          (WARNING (format "Unit ~a of course ~a has no activities for evidence statments under listed standard ~a~n" (current-unit) (current-course) (third lo)) 'evidence-statements))
                         (list (elem (bold (third lo)) ": " (first lo))
                               keep-evid)))
                     ;; separately alphabetize Common Core and BS standards
@@ -751,6 +754,7 @@
 ;; Not sure why we have the dual nested here ...
 (define (main-contents . body)
   (list (augment-head)
+        (include-language-links-main)
         (nested #:style (bootstrap-div-style/id/nested "body")
                 (nested #:style (bootstrap-div-style "item") 
                         body))))
@@ -773,11 +777,11 @@
                      'the-unit-description
                      (lambda ()
                        #f)))
+  (unless result
+    (WARNING (format "no unit-descr for ~a~n" unit-name) 'missing-unit-descr))
   (if result
       result
-      (begin 
-        (printf "WARNING: no unit-descr for ~a~n" unit-name)
-        "")))
+      ""))
 
 ;; summary-item/no-link : string -> block
 ;; produces an item for the unit summary with a title but no links
@@ -835,10 +839,13 @@
 ;; generate the summary of a unit with links to html and pdf versions as
 ;;   used on the main page for the BS1 curriculum
 ;; previously used summary-item/links (for both html/pdf links)
-(define (unit-summary/links num)
-  (summary-item/unit-link (format (string-append (translate 'unit)" ~a") num)
+(define (unit-summary/links num )
+  ;; NOTE: This assumes every unit is of the form "Unit 1" or "Unit 2"
+  (printf "\n\nchecking ~a against ~a\n\n\n" (format (string-append (translate 'unit)"~a") num) (units))
+  (when (or (empty? (units)) (member (format (string-append "unit""~a") num) (units)))
+    (summary-item/unit-link (format (string-append (translate 'unit)" ~a") num)
                           (format "units/unit~a/index" num)  ; index used to be "the-unit" 
-                          (get-unit-descr (format "unit~a" num))))
+                          (get-unit-descr (format "unit~a" num)))))
 
 ;;;;;;;;;; Unit summary generation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -872,7 +879,8 @@
          #:materials (materialsItems #f)
          #:preparation (preparationItems #f)
          #:lang-table (lang-table #f)
-         #:gen-agenda? (gen-agenda? #t) 
+         #:gen-agenda? (gen-agenda? #t)
+         #:provide-translation? (translation? #t)
          . description
          )
   (interleave-parbreaks/all
@@ -889,6 +897,9 @@
                            (interleave-parbreaks/all
                             (list
                              (if gen-agenda? (agenda) "")
+
+                             (include-language-links-units)
+                             
                              ; moved these outside summary for code.org prep -- remove next two lines once E confirms
                              ;(para #:style bs-header-style/span "Unit Overview")
                              ;(para #:style (bootstrap-div-style/id "overviewDescr") description)
@@ -945,7 +956,7 @@
 ;; raise-lesson-error: module-path -> void
 ;; Raises a lesson-specific error.
 (define (raise-lesson-error mp)
-  (error 'extract-lesson "lesson module path ~e does not have expected shape (e.g. (lib curr/lib/FOO/lesson.scrbl)" mp))
+  (error 'extract-lesson "lesson module path ~e does not have expected shape (e.g. (lib curr/lessons/langs/LANGUAGE/FOO/lesson.scrbl)" mp))
 
 ;; extract-lesson: module-path -> (listof block)
 ;; Extracts the lesson from the documentation portion, and also
@@ -1053,16 +1064,19 @@
                  ;; check that file starts with a #lang
                  (let ([init-line (read-line)])
                    (unless (and (string? init-line) (string=? "#lang" (substring init-line 0 5)))
-                     (printf (format "WARNING: extract-exercise-data: ~a does not start with #lang~n" filepath))
+                     (WARNING (format "extract-exercise-data: ~a does not start with #lang~n" filepath) 'exercise-langstart)
                      (raise 'local-break)))
                  ;; loop until get to the exercise sexp
                  (let ([exercise-sexp
                         (let loop ()
                           (let ([next (read)])
+
+                            (unless (or (eof-object? next) (eq? next '@))
+                              (WARNING (format "extract-exercise-data: got non-@ term ~a~n" next) 'invalid-exercise))
+                            (when (eof-object? next)
+                                (WARNING "extract-exercise-data reached end of file without finding exercise-handout\n" 'exercise-end))
                             (cond [(eof-object? next) 
-                                   (begin
-                                     (printf "WARNING: extract-exercise-data reached end of file without finding exercise-handout~n")
-                                     (raise 'local-break))]
+                                   (raise 'local-break)]
                                   [(eq? next '@)
                                    (let ([next-char-str (peek-string 1 0)])
                                      (if (string=? next-char-str ";")
@@ -1072,9 +1086,7 @@
                                                next-sexp
                                                (loop)))))]
                                   [else
-                                   (begin
-                                     (printf (format "WARNING: extract-exercise-data: got non-@ term ~a~n" next))
-                                     (raise 'local-break))])))])
+                                     (raise 'local-break)])))])
                    ;; dig into the exercise sexp to find the title and evidence tag
                    (let loop [(title #f) (evtag #f) (rem-sexp (rest exercise-sexp))]
                      (cond [(< (length rem-sexp) 2) (list title evtag)]
@@ -1083,6 +1095,40 @@
                            [else (loop title evtag (rest (rest rem-sexp)))]))))))])
       ;(printf "extract-data got ~a ~n" data)
       (values (first data) (second data)))))
+
+
+(define (include-language-links-units)
+  (interleave-parbreaks/all
+   ;TODO change interleave-parbreaks/all, can it access run-languages?
+   (foldl (lambda (language rest)
+            (cons (hyperlink #:style bs-translation-buttons-style
+                                     ;(path->string (find-relative-path
+                                     ;              (current-document-output-path)
+                                     ;             (string-replace (path->string (current-document-output-path)) (getenv "LANGUAGE") language)))
+                                     (string-append "../../../../" (current-course)"/" language "/units/" (current-unit) "/index.html")
+                                     (translate (string->symbol language))) rest))
+          ( list (hyperlink  #:style bs-translation-buttons-style 
+                         "#"
+                         "add translation"))
+          (current-course-languages))))
+
+(define (include-language-links-main)
+  (interleave-parbreaks/all
+   ;TODO change interleave-parbreaks/all, can it access run-languages?
+    (foldl (lambda (language rest)
+             (cons (hyperlink  #:style bs-translation-buttons-style 
+                                       ;(path->string (find-relative-path
+                                       ;              (current-document-output-path)
+                                       ;             (string-replace (path->string (current-document-output-path)) (getenv "LANGUAGE") language)))
+                                       (string-append "../" language "/index.shtml")
+                                       (translate (string->symbol language))) rest))
+           ( list (hyperlink  #:style bs-translation-buttons-style 
+                         "#"
+                         "add translation"))
+           (current-course-languages))))
+             
+
+
                                      
 ;; generates the DOM for the additional exercises component of the unit page
 ;; the exercise-list.rkt file built up in this function gets used in the build
@@ -1092,7 +1138,8 @@
    (lambda (get set)
      (lambda (get set)
        (with-output-to-file "exercise-list.rkt" (lambda () (printf "(")) #:exists 'replace)
-       (let* ([exercise-locs (get 'exercise-locs '())]
+       (let* ([unit-title (current-unit)]
+              [exercise-locs (get 'exercise-locs '())]
               [exercise-output
                (if (empty? exercise-locs) (para)
                    (nested #:style (bootstrap-div-style "ExtraExercises")
@@ -1134,9 +1181,31 @@
                                                              ;(elem #:style (bootstrap-span-style "supports-evid") support)
                                                              ))))))
                                          exercise-locs))
+                             (when (hash-has-key? current-teacher-contr-xref unit-title)
+                             (para #:style bs-lesson-title-style (string-append (translate 'add-teacher-contr) ":")))                          
+                             (when (hash-has-key? current-teacher-contr-xref unit-title)
+                               (apply itemlist/splicing 
+                                    (map (lambda (ex-spec)
+                                           (let* ([name (first ex-spec)]
+                                                 [school (second ex-spec)]
+                                                 [grade (third ex-spec)]
+                                                 [descr (fourth ex-spec)]
+                                                 [link (fifth ex-spec)]
+                                                 [label descr])
+                                             (elem (list (hyperlink #:style bootstrap-hyperlink-style link label)
+                                                         (string-append ": "(translate 'submitted-by)" " name ", " (translate 'teach-at) " " school ". "(translate 'grade-for)" " grade)))))
+                                         (hash-ref current-teacher-contr-xref unit-title)))   )                                    
+
+                                             
                              ))))])
          (with-output-to-file "exercise-list.rkt" (lambda () (printf ")")) #:exists 'append)
          exercise-output)))))
+
+
+
+
+
+
 
 ;;;;;;;; LINKING BETWEEN COMPONENTS ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1161,7 +1230,7 @@
           [else (elem)])]
         [(string=? lang "racket") 
          (if (and definitions-text pid)
-             (printf "WARNING: creating wescheme link with both defns text and public id~n")
+             (WARNING "creating wescheme link with both defns text and public id\n" 'weScheme-links)
              (let ([optionstext (if (audience-in? (list "student"))
                                     "hideHeader=true&warnOnExit=false&"
                                     "")]
@@ -1175,12 +1244,12 @@
                                     ,link-text))]
                 [else (elem)])))]
         [else
-         (printf "WARNING: editor-link has unknown lang ~a~n" lang)]))
+         (WARNING (format "editor-link has unknown lang ~a in unit ~a of course ~a~n" lang (current-unit) (current-course)) 'editor-link-lang)]))
 
 ;; create a link to a particular program at wescheme.org, with the embedded target
 (define (run-link #:public-id (pid #f) link-text)
   (if (not pid)
-      (printf "WARNING: run-link needs a public-id argument")
+      (WARNING (format "run-link needs a public-id argument in unit ~a of course ~a"(current-unit) (current-course)) 'run-link)
       (cond-element
        [html
         (sxml->element `(a (@ (href ,(format "http://www.wescheme.org/view?publicId=~a" pid))
@@ -1214,6 +1283,8 @@
 ;; resource-path should be a path string relative to the resources subdirectory.
 ;; The use of unit-to-resources-path reflects an assumption that all links are
 ;;  created within the-unit.html files.  Will need to add a param if other cases arise
+
+;;TODO
 (define (resource-link #:path resource-path
                        #:label [label #f])
   (let ([the-relative-path (build-path (unit-to-resources-path) resource-path)])
@@ -1262,14 +1333,21 @@
     ;                                                         'up
     ;                                                         "worksheets"
     ;                                                         (format "~a.html" name)))])))
+  
   (list (hyperlink #:style bootstrap-hyperlink-style
                    (path->string the-relative-path)
-                   (string-append (translate 'page) " ") (number->string 
-                            (cond [page page] 
-                                  [name (let ([num (get-workbook-page/name name)])
-                                          (if num num
-                                              (error 'worksheek-link (format "Unknown page name ~a" name))))]
-                                  [else (begin (printf "WARNING: worksheet link needs one of page or name~n") 0)])))))
+                   (string-append (translate 'page) " "
+                                  (number->string 
+                                   (cond [page page] 
+                                         [name (let ([num (get-workbook-page/name name)])
+                                                 (if num num (begin (WARNING (format "Unknown page name ~a" name) 'worksheet-link)
+                                                     1))
+                                                 ; (if (file-exists? (build-path (get-workbook-dir) "StudentWorkbook.pdf"))
+                                                 ;    (WARNING (format "Unknown page name ~a" name) 'worksheet-link)
+                                                 ;;TODO WHY WON'T THIS WORK RIGHT/IS IT OKAY TO HAVE MADE THIS FROM AN ERROR INTO A WARNING?
+                                                 )]
+                                         [else (begin (WARNING "worksheet link needs one of page or name\n" 'incomplete-worksheet)
+                                               0)]))))))
 
 ;; Link to a particular lesson by name
 ;; lesson-link: #:name string #:label (U string #f) -> element
@@ -1295,7 +1373,8 @@
                    (if label label lesson-name))]       
        ;; If not, fail for now by producing a hyperlink that doesn't quite go to the right place.
        [else
-        (fprintf (current-output-port) "Warning: could not find cross reference to ~a\n" lesson-name)
+        ;;current-output-port breaks
+        ;;(WARNING (format (current-output-port) "could not find cross reference to ~a in unit ~a of course ~a\n" lesson-name (current-unit) (current-course)) 'lesson-refs) 
         (define the-relative-path
           (find-relative-path (simple-form-path (current-directory))
                               (simple-form-path (build-path worksheet-lesson-root lesson-name "lesson" "lesson.html"))))
@@ -1307,7 +1386,7 @@
                      #:label [label #f]
                      #:course [course (current-course)])
   (hyperlink #:style bootstrap-hyperlink-style
-             (path->string (simple-form-path (build-path (current-deployment-dir) "courses" course "units" unit-name "index.html")))
+             (path->string (simple-form-path (build-path (current-deployment-dir) "courses" course (getenv "LANGUAGE") "units" unit-name "index.html")))
              (if label label unit-name)))
 
 
@@ -1363,8 +1442,8 @@
            (let ([lookup (assf (lambda (entry-key) (or (equal? elt entry-key)
                                                        (and (list? entry-key) (member elt entry-key))))
                                in-dictionary)])
-             (if lookup (cons lookup result)
-                 (begin 
-                   (printf "WARNING: ~a not in dictionary: ~a~n" tag-descr elt)
-                   (if show-unbound (cons elt result) result)))))
+             (unless lookup
+               (WARNING (format "~a not in dictionary: ~a~n" tag-descr elt) 'lookup-tags))
+             (if lookup (cons lookup result)                   
+                   (if show-unbound (cons elt result) result))))
          '() taglist))

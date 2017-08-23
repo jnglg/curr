@@ -2,10 +2,10 @@
 
 @title{Unidad 7: Ramificación condicional}
 
-@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt}) 
-                                       (list "String" @code{string-append string-length})                          
-                                       (list "Image" @code{rectangle circle triangle ellipse radial-star scale rotate put-image})
-                                       (list "Boolean" @code{= > < string=? and or}))]{
+@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt} "1 ,4 ,44.6") 
+                                       (list "String" @code{string-append string-length} " \"hello\" ")                          
+                                       (list "Image" @code{rectangle circle triangle ellipse star scale rotate put-image} "(circle 25 \"solid\" \"red\")")
+                                       (list "Boolean" @code{= > < string=? and or} "true false"))]{
   @unit-descr{Los estudiantes utilizan funciones por partes para mover a sus jugadores en respuesta a pulsaciones de teclas.}
    }
 
@@ -154,7 +154,7 @@
      #:materials @itemlist[@item{El @(resource-link #:path "workbook/StudentWorkbook.pdf" #:label "Libro de Trabajo") del estudiante.}
                            @item{Todas las computadoras de los estudiantes deben tener sus plantillas de juego precargadas, con sus archivos de imagen enlazados}]
      #:preparation @itemlist[]
-     #:prerequisites (list "Luigi's Pizza" "Target and Danger Movement")
+     #:prerequisites (list "Luigi's Pizza" "Danger and Target Movement")
      #:pacings (list 
                 @pacing[#:type "remediation"]{@itemlist[@item{}]}
                 @pacing[#:type "misconception"]{@itemlist[@item{}]}

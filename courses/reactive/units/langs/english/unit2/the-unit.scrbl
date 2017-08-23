@@ -4,10 +4,9 @@
 
 
 
-@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / num-sqr num-sqrt})
-                                       (list "String" @code{string-append string-length})
-                                       (list "Image"  @code{rectangle circle triangle ellipse star text}))
-                                                                                                          ]{
+@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / num-sqr num-sqrt} "1 ,4 ,44.6") 
+                                       (list "String" @code{string-append string-length} " \"hello\" ")                          
+                                       (list "Image" @code{rectangle circle triangle ellipse star text} "circle(25, \"solid\", \"red\")"))]{
 @unit-descr{Students discover the need for compound date - data structures - using 2-dimentionsal
             animation. They learn the syntax for data blocks, constructors and dot-accessors, and
             practice each by creating a "digital bakery".}
@@ -134,7 +133,8 @@ end}
           y :: Number)
     end}
    
-tells us that we're defining a new data type called @code{JumperState}, whose constructor function @code{jumper} takes in two things: x, which is a Number, and y, which is also a number. Once we've listed each input and its data type, we finish defining the structure with the @code{end} keyword, just like finishing an @code{example} block.}
+tells us that we're defining a new data type called @code{JumperState}, whose constructor function @code{jumper} takes in two things: x, which is a Number, and y, which is also a number. Once we've listed each input and its data type, we finish defining the structure with the @code{end} keyword, just like finishing an @code{example} block.
+@activity{In the interactions area, practice making some @code{JumperState}s using the @code{jumper()} constructor function. Try making a @code{JumperState} that represents the parachute jumper's position if they're in the water, another when they're in the air, over the cliff, and one when they're on the beach.}}
                             @teacher{This is the first data block students see in this course, but they will soon be writing their own to create new data structures. It's worth spending the time to cover this new syntax, paying special attention to capitalization (the name of the structure is capitalized (JumperState), whereas its constructor function (jumper) is lowercase), double colons (::) before data types, and commas between inputs to the constructor function.}
                             }
                                      

@@ -15,7 +15,9 @@
 (define (lessons-dir)
   (build-path "lessons"  "langs" (getenv "LANGUAGE")))
 
-(define-runtime-path lessons-dir-eng
+(define-runtime-path lessons-dir-alt-eng
+  (build-path 'up "lessons"  "langs" "english"))
+(define-runtime-path lessons-dir-alt-spa
   (build-path 'up "lessons"  "langs" "spanish"))
 
 (define-runtime-path courses-base
@@ -47,7 +49,7 @@
         [else (get-resources)]))
 
 (define (get-workbook-dir)
-  (build-path (get-resources) "workbook"))
+  (build-path (get-resources) "workbook" "langs" (getenv "LANGUAGE")))
 
 (define (get-teachers-guide)
   (build-path courses-base (current-course) "resources" "teachers" "teachers-guide" "teachers-guide.scrbl"))

@@ -1,6 +1,4 @@
-#lang racket
 
-(provide translations)
 ;;
 ;;The section headers refer to the sections of the output webpages generated. Note that
 ; there are comments for translators to indicate what each phrase is and where exactly it
@@ -10,8 +8,7 @@
 ;Developer; Developer comments begin with a function name. If not otherwise indicated, these methods
           ; can be found within form-elements.rkt. Alternative racket source files will be indicated next
           ; to the function name.
-(define translations
-  '(
+  (
 
 
 
@@ -34,14 +31,33 @@
 
 
 
-    
+    ;;;;;;;;;;;;;;;;;languages;;;;;;;;;;;;;;;;;;;;
+    ;Translator; these are the labels for links to bootstrap pages in other languages.
+               ; These should be the titles of languages as spoken in this language (right now, English)
+    (english "English")
+    (spanish "Spanish")
+
+
+
 
     ;;;;;;;;;;;;;;;;copyright section;;;;;;;;;;;;;;;;;;;;;
-    ;Translator; Found at the bottom of most pages; includes all copyright information
+    ;Translator; Found at the bottom of most pages; includes all copyright information.
+    ;there differing statements depending on who worked on which curriculum
 
-    ;Translator; Names listed at bottom of most pages, included in the copyright statement
-    ;Developler; copyright
-    (copyright-names "Bootstrap by Emmanuel Schanzer, Emma Youndtsmith, Kathi Fisler, Shriram Krishnamurthi, Joe Politz and Ben Lerner is licensed under a ")
+        ;Translator; Names listed at bottom of most pages in the algebra curriculum, included in the copyright statement
+    ;Developler; copyright for algebra
+    (copyright-names-alg "Bootstrap:Algebra by Emmanuel Schanzer, Emma Youndtsmith, Kathi Fisler, and Shriram Krishnamurthi is licensed under a ")
+     ;Translator; Names listed at bottom of most pages in the reactive curriculum, included in the copyright statement
+    ;Developler; copyright for reactive
+    (copyright-names-reac "Bootstrap:Reactive by Emmanuel Schanzer, Emma Youndtsmith, Kathi Fisler, Shriram Krishnamurthi, and Joe Politz is licensed under a ")
+    ;Translator; Names listed at bottom of most pages in the physics curriculum, included in the copyright statement
+    ;Developler; copyright for physics
+    (copyright-names-phys "Bootstrap:Physics by Emmanuel Schanzer, Shriram Krishnamurthi, and Sam Dooman is licensed under a ")
+     ;Translator; Names listed at bottom of most pages in the data-science curriculum, included in the copyright statement
+    ;Developler; copyright for data-science
+    (copyright-names-data "Bootstrap:Data Science by Shriram Krishnamurthi, Joe Politz and Ben Lerner is licensed under a ")
+
+    
     ;Translator; This is the hyperlink listed within the copyright statement at the bottom of most pages.
     ;Developler; copyright
     (copyright-license "Creative Commons 4.0 Unported License")
@@ -229,6 +245,7 @@
     ;Developer; language-table
     (lang-table-types "Types")
     (lang-table-func "Functions")
+    (lang-table-vals "Values")
 
 
 
@@ -305,9 +322,26 @@
     ;Translator; This is the label for the additional exercises found at the bottom of the page
     ;Developer; gen-exercises
     (add-exer "Additional Exercises")
+
+    ;Translator; This is the label for the additional Teacher Contributions found at the bottom of
+               ; the page. NOTE: As of 5/7/17, this is not yet live on the website but would function
+               ; the same as Additional Exercises above
+    ;Developer; gen-exercises
+    (add-teacher-contr "Additional Exercises from Bootstrap Teachers")
+    
     ;Translator; This is something added to certain exercise link titles (See Unit 4 for examples)
                ; This is a directive.
     (checkDR "Check This Design Recipe")
+
+               ;;; teacher submissions ;;;
+    ;Translator; These form the structure of the sentence describing a teacher sumbission, found (only if they occur) at the bottom of unit page
+    ;an example: TITLE: submitted by TEACHER, a teacher at SCHOOL. designed for students in grade GRADE
+
+    ;Developer; gen-exercises
+    (submitted-by "submitted by")
+    (teach-at "a teacher at")
+    (grade-for "designed for students in grade")
+
     
                ;;; Section headers ;;;
     ;Translator; this is the time listed on the righ of every purple block of the

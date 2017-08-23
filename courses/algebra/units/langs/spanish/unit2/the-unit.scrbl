@@ -1,7 +1,7 @@
 #lang curr/lib
 
 @title{Unidad 2: Contratos, Cadenas de Texto e Imágenes }
-@unit-overview/auto[#:lang-table (list "Number" @code{+ - * / sqr sqrt expt})]{
+@unit-overview/auto[#:lang-table (list "Number" @code{+ - * / sqr sqrt expt "1 ,4 ,44.6"} "1 ,4 ,44.6")]{
 @unit-descr{Los estudiantes son introducidos a una representación de asignación de mapeo para funciones, en la que el objeto de función existe como un medio de traducir puntos
 Desde un dominio a un rango. Junto con su comprensión de Círculos de Evaluación, los estudiantes generalizan su comprensión de las funciones para
 Incluyen otros tipos de datos, incluyendo cadenas e imágenes.}

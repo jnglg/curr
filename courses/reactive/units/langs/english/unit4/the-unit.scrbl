@@ -2,9 +2,9 @@
 
 @title{Unit 4: Functions that Ask Questions}
 
-@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / num-sqr num-sqrt num-expt})
-                                       (list "String" @code{string-append string-length})
-                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image}))]{
+@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / num-sqr num-sqrt num-expt} "")
+                                       (list "String" @code{string-append string-length} "")
+                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image} ""))]{
 @unit-descr{Students are introduced to conditionals using @tt{if-expressions}, on both built-in data (like numbers) and on programmer-defined data structures.
             They then use conditionals to implement an animation that goes through distinct phases. They also learn about helper functions, which abstract away
             frequently-used code to improve readability and reduce duplication.
@@ -55,9 +55,6 @@
 
       @item{Change the @code{wear} function to return the shorts outfit when it's cold
       (less than 30 degrees).}
-
-      @item{@bold{Challenge:} Change the @code{wear} function to use Celsius degrees
-      rather than Fahrenheit.}
 
     ]
   }
@@ -127,7 +124,7 @@
 @student{Let's revisit the parachute jumper program from earlier.  We're going to write
 a function that tells us where the jumper is for a given @code{JumperState}.
 This is the kind of function you might need to write later on in your game, to
-detect where characters are, and make decisions based on that information.
+detect where characters are, and make decisions based on that information. For instance, you may need to know whether a character has reached a portal at a certain part of the screen to advance to the next level, or if they've fallen into dangerous lava, which reduces their health!
 
 @activity{Open your workbook to @worksheet-link[#:name "location"]. Use the design recipe to write a function to tell you where the parachute jumper is (either "cliff", "beach", "water", or "air"), based on the JumperState.}
           
@@ -165,7 +162,7 @@ cliff!
             @itemlist[
                       @item{Click "Run" to compile your program, then close the animation window.}
                        @item{In the interactions pane, evaluate @code{location(START)}. What does it return (hopefully @code{"air"})?}
-                       @item{Evaluate @code{draw(START)}. does it look like the jumper is in the air?}  
+                       @item{Evaluate @code{draw-state(START)}. does it look like the jumper is in the air?}  
                        @item{Do the same for an instance of a JumperState where the jumper is on the cliff, in the water, and on the beach.}]
 
 }
@@ -175,7 +172,7 @@ cliff!
   @teacher{This kind of experimenting shows an important connection between functions that
 work with instances of a data structure, and the way we draw those instances.
 We have, in our design for the animation, an understanding of what different
-regions of the screen mean.  Here, we see that the @code{draw} and
+regions of the screen mean.  Here, we see that the @code{draw-state} and
 @code{location} functions both share this understanding to give consistent
 information about the animation.}
 }
@@ -228,7 +225,7 @@ information about the animation.}
 				 one that we want to practice with this exercise.  It is so useful, in fact, that we've
 				 created a worksheet to help you map out what needs to change in an existing animation
 				 to support new behavior.
-				 @activity{Turn to @worksheet-link[#:name "animation-extension-1-sun"]. Fill in the description
+				 @activity{Turn to @worksheet-link[#:name "extend-sunset-color"]. Fill in the description
 				 	   of the animation change and three sample images at the top of the first page.
 					   If you don't have colored pencils, just make an annotation near each sketch
 					   as to what color the sun should be in that sketch.}
@@ -296,7 +293,7 @@ information about the animation.}
 						               rectangle(WIDTH, HEIGHT, "solid", "light-blue")))
 						       end }
 				
-				@activity{Open your wokbook to @worksheet-link[#:name "sun-color"]. Here we have directions for
+				@activity{Open your wokbook to @worksheet-link[#:name "draw-sun"]. Here we have directions for
 				writing a function called @code{draw-sun}, Which consumes a @code{SunsetState} and produces an
 				image of the sun, whose color is either "yellow", "orange", or "red" depending on its y-coordinate.}}
                         @teacher{The word problem assumes a background scene size of 400x300 pixels. Once students use their

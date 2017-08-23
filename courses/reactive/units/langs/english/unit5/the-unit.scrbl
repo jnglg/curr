@@ -3,9 +3,9 @@
 @title{Unit 5: Key Events}
 
 
-@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / num-sqr num-sqrt num-expt})
-                                       (list "String" @code{string-append string-length})
-                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image}))]{
+@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / num-sqr num-sqrt} "1 ,4 ,44.6") 
+                                       (list "String" @code{string-append string-length} " \"hello\" ")                          
+                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image} "circle(25, \"solid\", \"red\")"))]{
 @unit-descr{Students are introduced to another type of event, called on-key. They define a key-event handler that modifies a reactor
             state to move a character when certain keys are pressed. To handle multiple possible keys, students return to the subject 
             of piecewise functions, giving them more practice with Pyret's if expressions.}
@@ -349,10 +349,10 @@ of the worksheet.  This is like the "purpose statement" for the feature.
 			  example for us to use in coding and testing?}
 
 	        In our samples, we estimate a bit from looking at the pictures, but note
-		that we pick numbers that would work with the desired behavior – @code{petB}
-		represents the state after 5 ticks, because hunger is 10 less (decreased by 2
-		each tick), and sleep is 5 less (decreased by 1 on each tick).  Th @code{petC}
-		sample instance corresponds to the state after how many ticks?
+		that we pick numbers that would work with the desired behavior – @code{MIDPET}
+		represents the state after 25 ticks, because hunger is 50 less (decreased by 2
+		each tick), and sleep is 25 less (decreased by 1 on each tick).  The @code{LOSEPET}
+		sample instance corresponds to the state when both hunger and sleep values are 0.
 
 		@activity{Use your sample instances to write examples of the @code{next-state-tick}
 			  function, which we marked as a to-do item on the first page of the worksheet.}
@@ -376,7 +376,7 @@ of the worksheet.  This is like the "purpose statement" for the feature.
 		check off its box.  Finally, we need to add the handler to the @code{reactor}
 		so the reactor calls the function we just wrote on tick events.
 
-		@activity{Edit the @code{pet=react} reactor to include @code{next-state-tick} alongside the
+		@activity{Edit the @code{pet-react} reactor to include @code{next-state-tick} alongside the
 		          @code{on-tick} handler.}
 
                  You should have ended up with something like this:
@@ -456,7 +456,7 @@ ones that will help you build your very own program!}
  @teacher{Some next steps/optional activities if students finish these activities:
 @itemlist[@item{Find your own images to create a different virtual pet}
           @item{Stop the bars from overflowing some maximum. (produce something like @editor-link[#:public-id "0B9rKDmABYlJVNTR6ajd4N1hPRm8" "this completed game"])}
-          @item{Add an x-coordinate to the PetState so the pet moves around, either on keypress or automatically.}
+          @item{Add an x-coordinate to the PetState so the pet moves around, either on keypress or based on clock ticks.}
           @item{Add a costume to the PetState, then change the draw-pet function so that it changes the costume based on the pet's mood (if a-pet.hunger <= 50, show a pic of the pet looking hungry)}]
 
 }}

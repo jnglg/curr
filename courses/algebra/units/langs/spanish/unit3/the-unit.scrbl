@@ -2,9 +2,9 @@
 
 @title{Unidad 3: Introducción a Definiciones}
 
-@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt})
-                                       (list "String" @code{string-append string-length})
-                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image}))]{
+@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt} "1 ,4 ,44.6")
+                                       (list "String" @code{string-append string-length} "\"hello\""   )
+                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image} "(circle 25 \"solid\" \"red\")" ))]{
   @unit-descr{Los estudiantes son introducidos al área de definiciones, y aprenden la sintaxis para definir valores de varios tipos. También se introducen en la sintaxis de definir funciones y crear ejemplos.}
 }
 @unit-lessons{
@@ -267,7 +267,7 @@ Esta función redimensiona el @code{Image} basada en el @code{Number}. Por ejemp
      #:standards (list "F-IF.1-3" "F-IF.4-6" "F-BF.1-2" "BS-PL.3" "BS-DR.1" "BS-DR.2" "BS-DR.3")
 @;     #:materials @itemlist[@item{Student @resource-link[#:path "workbook/StudentWorkbook.pdf" #:label "workbook"] folders with names on covers.}]
      #:preparation @itemlist[]
-     #:prerequisites (list "Contracts" "Stings and Images" )
+     #:prerequisites (list "Contracts" "Strings and Images" )
      #:pacings (list 
                 @pacing[#:type "remediation"]{@itemlist[@item{}]}
                 @pacing[#:type "misconception"]{@itemlist[@item{}]}
