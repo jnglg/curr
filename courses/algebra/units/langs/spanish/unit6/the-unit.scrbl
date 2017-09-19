@@ -1,10 +1,11 @@
 #lang curr/lib
+@declare-tags[]
 
 @title{Unidad 6: Enseñando Funciones para Comparar}
 
-@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt} "1 ,4 ,44.6") 
-                                       (list "String" @code{string-append string-length} " \"hello\" ")                          
-                                       (list "Image" @code{rectangle circle triangle ellipse star scale rotate put-image} "(circle 25 \"solid\" \"red\")"))]{
+@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt})
+                                       (list "String" @code{string-append string-length})
+                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image}))]{
 @unit-descr{ Los estudiantes descubren tipos booleanos y los usan para crear programas que prueban valores y luego modelan escenarios usando estos programas.}
 }
 
@@ -63,7 +64,7 @@ Lapiceros/lápices para los estudiantes, marcadores de pizarra para profesores}
                 @pacing[#:type "challenge"]{@itemlist[@item{}]}
                 )
       ]{
-        @points[@point{@student{@activity[#:forevidence (list "BS-IDE&1&1")]{¿A que @vocab{equivale} cada una de las siguientes expresiones? (Si no estás seguro, puedes digitarlas y probar!)
+        @points[@point{@student{@activity[#:forevidence (list "BS-IDE&1&1")]{¿A que @vocab{equivale} cada una de las siguientes expresiones? (¡Si no estás seguro, puedes digitarlas y probar!)
                               @itemlist[@item{@code{(+ 1 4)}}
                                          @item{@code{(/ 4 2)}}
                                          @item{@code{(circle 10 "solid" "blue")}}
@@ -272,7 +273,7 @@ Lapiceros/lápices para los estudiantes, marcadores de pizarra para profesores}
        @points[@point{@student{Ahora que sabes cómo combinar pruebas, ¿cómo @code{onscreen?} puede combinar ambas pruebas para mantener a Sam en la pantalla?
                                @activity[#:forevidence (list "BS-DR.2&1&1" "BS-DR.2&1&3" "BS-DR.3&1&1" "F-IF.4-6&1&3" "A-SSE.1-2&1&4" "A-CED.1-4&1&1")]{
                                     Ve a la @worksheet-link[#:name "onscreen"] en tu libro y escribe la función completa de @code{onscreen?},
-                               de tal forma que evalue @code{safe-left?} y @code{safe-right?}. Digita los ejemplos y definiciones cuando hayas terminado, haz clic en "Run", y observa si Sam está protegido por ambos lados!}
+                               de tal forma que evalue @code{safe-left?} y @code{safe-right?}. ¡Digita los ejemplos y definiciones cuando hayas terminado, haz clic en "Run", y observa si Sam está protegido por ambos lados!}
                                }
                        @teacher{Have the volunteers stand once again, and ask the class what @code{onscreen?} @italic{should} do. Should it be using @code{and} or @code{or}? Be sure to give specific examples of points that are onscreen, too far to the left and too far to the right, and challenge the students to justify their answers.}
                        }

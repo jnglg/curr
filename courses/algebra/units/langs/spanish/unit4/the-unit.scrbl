@@ -1,10 +1,11 @@
 #lang curr/lib
+@declare-tags[]
 
 @title{Unidad 4: La Receta de Diseño}
 
-@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt} "1 ,4 ,44.6") 
-                                       (list "String" @code{string-append string-length} " \"hello\" ")                          
-                                       (list "Image" @code{rectangle circle triangle ellipse star scale rotate put-image} "(circle 25 \"solid\" \"red\")"))]{
+@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt})
+                                       (list "String" @code{string-append string-length})
+                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image}))]{
 @unit-descr{Los estudiantes continúan practicando la Receta de Diseño aplicándolas a problemas simples.}
  }
 @unit-lessons{
@@ -41,7 +42,7 @@
       ]{
         @points[ @point{@student{Las funciones son una parte clave de la animación en los programas informáticos. Una función que dibuja una imagen estática de un gato,
                                  por ejemplo, puede colocar el gato en una ubicación diferente en función de la entrada. Cuando esa entrada cambia ligeramente
-                                 basada en el tiempo o la interacción del usuario, el gato parecerá moverse. Esto es similar a la forma en que el la animación flip-book
+                                 basada en el tiempo o la interacción del usuario, el gato parecerá moverse. Esto es similar a la forma en que la animación flip-book
                                  funciona, en la que cada página dibuja una imagen estática que ha cambiado por una pequeña cantidad. Cuando las páginas
                                  se muestran rápidamente, las imágenes parecen cambiar 
                                  @bannerline{@bitmap{images/flipbookSlides.png}}
@@ -70,12 +71,12 @@
                          @teacher{}
                         }
                  @point{@student{El Contrato es una manera de pensar sobre la función de una manera general, sin tener que preocuparse por exactamente cómo funcionará o cómo se utilizará. Comenzar con preguntas sencillas como estas hará que los pasos posteriores sean mucho más fáciles de pensar. Sin embargo, ¡el contrato no siempre tiene suficiente información! El dominio de @code{star}, por ejemplo, especifica que la función necesita un número y dos cadenas, pero no menciona el hecho de que la primera cadena debe ser @code{"solid"} o @code{"outline"}. Para agregar esta información, los programadores escriben @vocab{declaración de propósito}, que son oraciones simples que explican lo que hace una función.
-                                 @activity[#:forevidence (list "BS-DR.1&1&2" "F-IF.1-3&1&5")]{Debajo del Contrato, escribe lasiguiente Declaración de Propósito para @code{rocket-height}.}
+                                 @activity[#:forevidence (list "BS-DR.1&1&2" "F-IF.1-3&1&5")]{Debajo del Contrato, escribe la siguiente Declaración de Propósito para @code{rocket-height}.}
                                  @code[#:multi-line #t]{; rocket-height : Number -> Number
                                                         ; Multiplica el número de segundos por 7 para encontrar la altura}}
                          @teacher{This is an opportunity to talk about the importance of writing, clarity, and brevity. What information is essential for a purpose statement? What information is irrelevant?  A good purpose statement describes what is computed and how its inputs are used; it should go beyond the information given in the contract and implicit in the name of the function.}
                          }
-                 @point{@student{Construyendo la Declaración de contrato y propósito, se hace fácil escribir un @code{EXAMPLE}. Cada ejemplo comienza con el nombre de la función y una entrada de muestra, ambas de las cuales están escritas en el Contrato. En este caso, tú sabes que la función se llama @code{rocket-height} y que espera un solo número como entrada. La declaración de propósito va más allá, diciendote que la entrada se multiplica por 7. Podemos usar esto para escribir dos ejemplos, con diferentes números de segundos como entradas.
+                 @point{@student{Construyendo la Declaración de contrato y propósito, se hace fácil escribir un @code{EXAMPLE}. Cada ejemplo comienza con el nombre de la función y una entrada de muestra, ambas de las cuales están escritas en el Contrato. En este caso, tú sabes que la función se llama @code{rocket-height} y que espera un solo número como entrada. La declaración de propósito va más allá, diciéndote que la entrada se multiplica por 7. Podemos usar esto para escribir dos ejemplos, con diferentes números de segundos como entradas.
                                 @code[#:multi-line #t]{; rocket-height : Number -> Number
                                                        ; Multiplica el número de segundos por 7 para encontrar la altura
                                                        (EXAMPLE (rocket-height 11) 

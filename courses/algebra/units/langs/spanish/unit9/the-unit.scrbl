@@ -1,11 +1,13 @@
 #lang curr/lib
 
+@declare-tags[]
+
 @title{Unidad 9: Preparación para el lanzamiento}
 
-@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt} "1 ,4 ,44.6") 
-                                       (list "String" @code{string-append string-length} " \"hello\" ")                          
-                                       (list "Image" @code{rectangle circle triangle ellipse star scale rotate put-image} "(circle 25 \"solid\" \"red\")")
-                                       (list "Boolean" @code{= > < string=? and or} "true false"))]{
+@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt})
+                                       (list "String" @code{string-append string-length})
+                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image})
+                                       (list "Boolean" @code{= > < string=? and or}))]{
 
 @unit-descr{Los estudiantes editan los detalles del juego, practican hablando sobre su código y se preparan para su Lanzamiento.}
  }
@@ -32,6 +34,7 @@
                            @item{Cámara: ¡Tomen fotos hoy!}
                           ]
      #:preparation @itemlist[@item{Ejemplo de póster para un juego ficticio, para usarlo como modelo para los estudiantes.}]
+     #:prerequisites ""
      #:pacings (list 
                 @pacing[#:type "remediation"]{@itemlist[@item{}]}
                 @pacing[#:type "misconception"]{@itemlist[@item{}]}
@@ -79,6 +82,7 @@
                                               @item{Energía más positiva}
                                               @item{Maestros de la receta del diseño}]
                                    }]
+     #:prerequisites ""
      #:pacings (list 
                 @pacing[#:type "remediation"]{@itemlist[@item{}]}
                 @pacing[#:type "misconception"]{@itemlist[@item{}]}

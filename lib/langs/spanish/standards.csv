@@ -230,7 +230,7 @@ BS-PL.3,El alumno es capaz de utilizar la sintaxis del lenguaje de programación
 ,,Escribir casos de prueba,Y,,,,
 ,,Definición y uso de funciones,Y,,,,
 BS-PL.4,El estudiante está familiarizado con la sintaxis para condicionales,definición y uso de las funciones que implican condicionales,Y,,,,
-BS-DR.1,El estudiante es capaz de traducir un problema de palabras en un Contrato y Declaración de Propósito,"le presente un problema, identificar el dominio y rango de una función",Y,,,,
+BS-DR.1,El estudiante es capaz de traducir un ejercicio de aplicación en un Contrato y Declaración de Propósito,"le presente un problema, identificar el dominio y rango de una función",Y,,,,
 ,,"le presente un problema, escribir una declaración de propósito (es decir, - reescribir el problema en sus propias palabras)",Y,,,,
 BS-DR.2,El estudiante puede derivar casos de prueba para un determinado contrato y declaración de propósito,"dado un contrato y una declaración de propósito, escribir varios ejemplos o casos de prueba",Y,,,,
 ,,"la identificación de casos de prueba correctas e incorrectas para una función, en función de su contrato",Y,,,,

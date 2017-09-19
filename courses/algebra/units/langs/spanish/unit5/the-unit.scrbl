@@ -1,10 +1,11 @@
 #lang curr/lib
+@declare-tags[]
 
 @title{Unidad 5: Animación del juego}
 
-@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt} "1 ,4 ,44.6") 
-                                       (list "String" @code{string-append string-length} " \"hello\" ")                          
-                                       (list "Image" @code{rectangle circle triangle ellipse star scale rotate put-image} "(circle 25 \"solid\" \"red\")"))]{
+@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt})
+                                       (list "String" @code{string-append string-length})
+                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image}))]{
 @unit-descr{Los estudiantes definen funciones que mapean atributos de su juego de un marco a otro, permitiéndoles mover sus peligros, objetivos y proyectiles.}
 }
 
@@ -83,7 +84,7 @@
                                                      (define (update-danger x) (- x 50))}
                                  (Nota: Tú podrías tener diferentes ejemplos o nombres de variable.)
                                  @activity{Abre tu archivo de juego guardado y desplaza hasta que encuentres la definición para @code{update-danger}. ¿Es correcto el contrato?
-                                           Asegúrate que coincida con lo que tienes en tu libro de trabajo, agrega tus ejemplos, y corrige la definición. Cuando haces clic en "Run" tú deberías ver tu peligro volar a través de la pantalla!}
+                                           Asegúrate que coincida con lo que tienes en tu libro de trabajo, agrega tus ejemplos, y corrige la definición. ¡Cuando haces clic en "Run" tú deberías ver tu peligro volar a través de la pantalla!}
                                  }
                          @teacher{}
                          }

@@ -1,11 +1,12 @@
 #lang curr/lib
 
+@declare-tags[group selftaught]
 @title{Unidad 7: Ramificación condicional}
 
-@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt} "1 ,4 ,44.6") 
-                                       (list "String" @code{string-append string-length} " \"hello\" ")                          
-                                       (list "Image" @code{rectangle circle triangle ellipse star scale rotate put-image} "(circle 25 \"solid\" \"red\")")
-                                       (list "Boolean" @code{= > < string=? and or} "true false"))]{
+@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt}) 
+                                       (list "String" @code{string-append string-length})                          
+                                       (list "Image" @code{rectangle circle triangle ellipse radial-star scale rotate put-image})
+                                       (list "Boolean" @code{= > < string=? and or}))]{
   @unit-descr{Los estudiantes utilizan funciones por partes para mover a sus jugadores en respuesta a pulsaciones de teclas.}
    }
 
@@ -125,7 +126,7 @@
            }
      @point{@student{En este momento la cláusula @code{else} produce una cadena de texto (String), aunque el Rango de la función sea Number. ¿Crees que esto es un problema? 
                      ¿Por qué o por qué no? Como seres humanos, tener una salida que rompa ese contrato puede no ser un problema: sabemos que las funciones 
-                     producirán el costo de una pizza o un mensaje de error. Pero, ¿ y si la salida de este código no iba a los humanos en absoluto? ¿Qué pasa si queremos utilizar
+                     producirán el costo de una pizza o un mensaje de error. Pero, ¿Si la salida de este código no iba a los humanos en absoluto? ¿Qué pasa si queremos utilizar
                      desde dentro de algún otro código? ¿Es posible que @italic{ese} código se confunda? Para averiguarlo, descomenta la última 
                      línea del programa @code{(start cost} removiendo el punto y coma. Al hacer clic en "Ejecutar", el simulador utilizará la función de @code{cost}
                      para ejecutar la caja registradora. ¡Mira lo que pasa si ordenas fuera del menú!
@@ -154,7 +155,7 @@
      #:materials @itemlist[@item{El @(resource-link #:path "workbook/StudentWorkbook.pdf" #:label "Libro de Trabajo") del estudiante.}
                            @item{Todas las computadoras de los estudiantes deben tener sus plantillas de juego precargadas, con sus archivos de imagen enlazados}]
      #:preparation @itemlist[]
-     #:prerequisites (list "Luigi's Pizza" "Danger and Target Movement")
+     #:prerequisites (list "Luigi's Pizza" "Target and Danger Movement")
      #:pacings (list 
                 @pacing[#:type "remediation"]{@itemlist[@item{}]}
                 @pacing[#:type "misconception"]{@itemlist[@item{}]}
@@ -201,7 +202,7 @@
                                        transporta de nuevo al centro de la pantalla, en y=240.)}
                                   @item{@bold{Boundary-detection} Cambia la condición para subir
                                          de modo que el jugador se mueva hacia arriba solamente si la tecla="arriba" Y el
-                                         @code{player-y} es menor que 480 . Igualmente, cambia la condición
+                                         @code{player-y} es menor que 480. Igualmente, cambia la condición
                                          para "abajo" para también comprobar que @code{player-y} es mayor que 0.}
                                   @item{@bold{Wrapping:} Agrega una condición (antes de cualquiera de las teclas) 
                                          que comprueba que la coordenada "y" del jugador está 

@@ -1,7 +1,9 @@
 #lang curr/lib
 
+@declare-tags[]
+
 @title{Unidad 2: Contratos, Cadenas de Texto e Imágenes }
-@unit-overview/auto[#:lang-table (list "Number" @code{+ - * / sqr sqrt expt "1 ,4 ,44.6"} "1 ,4 ,44.6")]{
+@unit-overview/auto[#:lang-table (list "Number" @code{+ - * / sqr sqrt expt})]{
 @unit-descr{Los estudiantes son introducidos a una representación de asignación de mapeo para funciones, en la que el objeto de función existe como un medio de traducir puntos
 Desde un dominio a un rango. Junto con su comprensión de Círculos de Evaluación, los estudiantes generalizan su comprensión de las funciones para
 Incluyen otros tipos de datos, incluyendo cadenas e imágenes.}
@@ -81,7 +83,7 @@ Incluyen otros tipos de datos, incluyendo cadenas e imágenes.}
                                                                     @itemlist[@item{¿Qué hace la función @code{star}?}
                                                                                @item{Digita la expresión otra vez, pero esta vez utiliza un número más grande en vez de @code{50}. ¿Qué es lo que el primer argumento le dice a la computadora?}
                                                                                @item{Digita la expresión otra vez, esta vez usando el código @code{"outline"} en lugar de @code{"solid"}, teniendo cuidado de mantener las comillas. ¿Qué le dice el segundo argumento a la computadora?}
-                                                                               @item{Ahora reemplaza el código @code{"red"} con otra cosa (otra vez, ¡Manten las comillas!). ¿Qué le dice el tercer argumento a la computadora?}]
+                                                                               @item{Ahora reemplaza el código @code{"red"} con otra cosa (otra vez, ¡Mantén las comillas!). ¿Qué le dice el tercer argumento a la computadora?}]
                                                                     @editor-link[#:interactions-text "(star 50 \"solid\" \"red\")" "¡Haz clic acá para probarlo!"]
                                                                     } 
                                                                      }
@@ -105,7 +107,7 @@ Incluyen otros tipos de datos, incluyendo cadenas e imágenes.}
              @point{@student{Está expresión también incluyó una nueva @vocab{función} llamada @code{star}. Así como la función de suma @code{+} toma dos números, @code{star} usa en ella @italic{un Número (Number) y dos Strings}, y produce un nuevo tipo de dato llamado @vocab{Imagen}.
                             @activity[#:forevidence "BS-PL.1&1&1"]{Cuál es el tipo de dato en cada uno de los valores listados abajo: ¿Number, String o Image? -- Number, String or Image? 
                                       @itemlist[@item{@code{42}}
-                                                 @item{@code{"Hola, mamá!"}}
+                                                 @item{@code{"¡Hola, mamá!"}}
                                                  @item{@code{9273482.42}}
                                                  @item{@bitmap{images/TriangleImage.png}}
                                                  @item{@code{"84729"}}

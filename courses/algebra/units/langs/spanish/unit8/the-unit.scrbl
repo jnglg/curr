@@ -1,10 +1,12 @@
 #lang curr/lib
 @title{Unidad 8: Detección de colisiones}
 
-@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt} "1 ,4 ,44.6") 
-                                       (list "String" @code{string-append string-length} " \"hello\" ")                          
-                                       (list "Image" @code{rectangle circle triangle ellipse star scale rotate put-image} "(circle 25 \"solid\" \"red\")")
-                                       (list "Boolean" @code{= > < string=? and or} "true false"))]{
+@declare-tags[]
+
+@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt})
+                                       (list "String" @code{string-append string-length})
+                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image})
+                                       (list "Boolean" @code{= > < string=? and or}))]{
 @unit-descr{Los estudiantes derivan, discuten y aprueban el teorema de Pitágoras, luego utilizan ese teorema---en conjunto con booleanos---para detectar colisiones en sus juegos.}
 }
 

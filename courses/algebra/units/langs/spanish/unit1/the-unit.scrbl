@@ -2,8 +2,9 @@
 
 @title{Unidad 1: Videojuegos y Planos Cartesianos}
 
+@declare-tags[]
 
-@unit-overview/auto[#:lang-table (list (list "" @code{} ""))]{
+@unit-overview/auto[#:lang-table (list (list "" @code{}))]{
   @unit-descr{Los estudiantes discuten los componentes de sus videojuegos favoritos y descubren que pueden ser reducidos a una serie de coordenadas. A continuación, exploran las coordenadas en el espacio cartesiano, e identifican las coordenadas de los personajes en un juego en varios puntos en el tiempo. Una vez que se sienten cómodos con las coordenadas, ellos hacen una lluvia de ideas sobre sus propios juegos y crean listas de coordenadas de muestra para diferentes puntos en el tiempo en su propio juego.}
 }
 @unit-lessons{
@@ -29,17 +30,7 @@
                               @itemlist[@item{What makes a language? Do some students already speak more than one language?}
                                          @item{Programming is very much a language, with its own syntax, semantics, etc}
                                          @item{Ask students about their favorite videogames. Be open about the scale of a modern game: they cost millions of dollars, are built by huge teams of programmers and artists, and are developed over years.}
-                                         @item{Set expectations about what can be accomplished in a single, introductory programming class.}]
-                              Some example development budgets for popular video games, from @(hyperlink "https://kotaku.com/how-much-does-it-cost-to-make-a-big-video-game-1501413649" "Kotaku"):
-                              @itemlist[@item{@bold{Crash Bandicoot:} $1.7 Million}
-                                        @item{@bold{Grim Fandango:} $3 Million}
-                                        @item{@bold{EverQuest:} $3 Million}
-                                        @item{@bold{Jak and Daxter:} $14 Million}
-                                        @item{@bold{Half-Life 2:} $40 Million}
-                                        @item{@bold{Call of Duty 2:} $14.5 Million}
-                                        @item{@bold{Guitar Hero:} $1.7 Million}
-                                        @item{@bold{Rock Band:} $20 Million}
-                                        @item{@bold{Destiny:} $140 Million}]}
+                                         @item{Set expectations about what can be accomplished in a single, introductory programming class.}]}
                      }
               ]
          }

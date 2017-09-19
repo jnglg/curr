@@ -1,10 +1,11 @@
 #lang curr/lib
+@declare-tags[]
 
 @title{Unidad 3: Introducción a Definiciones}
 
-@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt} "1 ,4 ,44.6")
-                                       (list "String" @code{string-append string-length} "\"hello\""   )
-                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image} "(circle 25 \"solid\" \"red\")" ))]{
+@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt})
+                                       (list "String" @code{string-append string-length})
+                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image}))]{
   @unit-descr{Los estudiantes son introducidos al área de definiciones, y aprenden la sintaxis para definir valores de varios tipos. También se introducen en la sintaxis de definir funciones y crear ejemplos.}
 }
 @unit-lessons{
@@ -97,7 +98,7 @@ Escriben algo una vez, lo definen como un acceso directo en el idioma y luego us
                         }
                  @point{@student{@activity[#:forevidence (list "BS-PL.3&1&1" "BS-IDE&1&2")]{
                                     En una nueva línea del área de Definiciones, define un valor llamado  @code{eye-color} que sea el color de tus ojos.
-                                    Todavía no hagas clic en "Run"!  
+                                    ¡Todavía no hagas clic en "Run"!  
                                     @itemlist[@item{Ve al área de Interacciones e intenta evaluar @code{eye-color}. Tú deberías obtener un mensaje de error que la computadora no sabe sobre @code{eye-color},
                                                     porque no hiciste clic en "Run" después de agregar la definición.}
                                               @item{Haz clic en "Run".}
@@ -108,7 +109,7 @@ Escriben algo una vez, lo definen como un acceso directo en el idioma y luego us
                         @teacher{}
                         }
                 @point{@student{@activity[#:forevidence (list "BS-PL.3&1&1" "BS-IDE&1&1")]{
-                                    Create the following definitions in the Definitions area, and check them out in the Interactions area:
+                                    Cree las siguientes definiciones en el área Definiciones y compruébelas en el área Interacciones:
                                     @itemlist[@item{Define un valor llamado @code{prize} que sea una estrella amarilla solida (tú eliges el tamaño).}
                                               @item{Define un valor llamado @code{big} que utilice @code{scale} para hacer tu @code{prize} tres veces más grande.}
                                               @item{Define un valor llamado @code{tilt} que utilice @code{rotate} para girar tu gran estrella amarilla por @code{45} grados.}
@@ -167,7 +168,7 @@ Escriben algo una vez, lo definen como un acceso directo en el idioma y luego us
                               You'll want to line them up as closely as possible, to reinforce the connection between the two languages.}
                      }
             @point{@student{@activity{Ve a la @worksheet-link[#:name "Translating-to-Algebra"] de tu libro. 
-                                              Verás muchas definiciones de valores escritas en código - Toma 2 minutos para convertirlas en matematicas. ¡Vamos!}}
+                                              Verás muchas definiciones de valores escritas en código - Toma 2 minutos para convertirlas en matemáticas. ¡Vamos!}}
                     @teacher{[@(hyperlink "https://www.youtube.com/watch?v=xRUoQO1AdVs" "Video")]}
                     }]
          }
@@ -194,10 +195,10 @@ Escriben algo una vez, lo definen como un acceso directo en el idioma y luego us
       ]{
         @points[@point{@student{@activity{Abre el archivo de videojuego (Game.rkt de @resource-link[#:path "source-files.zip" #:label "source-files.zip"]
                                           o @editor-link[#:public-id "RHBJYscAWj" "the online template"] de tal forma que puedas ver el código,
-                     y haz clic en "Run".(¡Podrías tener que esperar unos segundos para que carguen las Imágenes!) El área que aparece es un videojuego ejecutándose,
+                     y haz clic en "Run".(¡Podrías tener que esperar unos segundos para que carguen las Imágenes!) ¡El área que aparece es un videojuego ejecutándose,
                      pero probablemente has notado que nada se mueve - incluso si pulsas las teclas "arriba" o "abajo"! por ahora, haz clic en el botón "close" para regresar al código.}
                                  Este archivo contiene una lista de definiciones, donde podrás definir como lucen, se mueven e interactúan tus personajes.
-                                 Si bajas hasta el final, verás muchas definiciones que han sido llenadas para ti. Depende de @italic{ti} si creas definiciones para tu propio juego!
+                                 Si bajas hasta el final, verás muchas definiciones que han sido llenadas para ti. ¡Depende de @italic{ti} si creas definiciones para tu propio juego!
                                  }
                         @teacher{}
                         }
@@ -267,7 +268,7 @@ Esta función redimensiona el @code{Image} basada en el @code{Number}. Por ejemp
      #:standards (list "F-IF.1-3" "F-IF.4-6" "F-BF.1-2" "BS-PL.3" "BS-DR.1" "BS-DR.2" "BS-DR.3")
 @;     #:materials @itemlist[@item{Student @resource-link[#:path "workbook/StudentWorkbook.pdf" #:label "workbook"] folders with names on covers.}]
      #:preparation @itemlist[]
-     #:prerequisites (list "Contracts" "Strings and Images" )
+     #:prerequisites (list "Contracts" "Stings and Images" )
      #:pacings (list 
                 @pacing[#:type "remediation"]{@itemlist[@item{}]}
                 @pacing[#:type "misconception"]{@itemlist[@item{}]}
@@ -328,7 +329,7 @@ tome un número y produzca un triángulo verde sólido de cualquier tamaño que 
                                                                     (EXAMPLE (gt   50) (triangle   50 "solid" "green"))
                                                                     (EXAMPLE (gt  100) (triangle  100 "solid" "green"))}
                                              Estos ejemplos le dicen a la computadora que escribir @code{(gt 50)} debería producir el mismo resultado que @code{(triangle 50 "solid" "green")}, y que @code{(gt 100)} es equivalente a
-                                              @code{(triangle 100 "solid" "green")}. El problema de palabras especifica que los ejemplos @italic{deben} usar el nombre 'gt', y todos deben producir triángulos verdes sólidos.
+                                              @code{(triangle 100 "solid" "green")}. El ejercicio de aplicación especifica que los ejemplos @italic{deben} usar el nombre 'gt', y todos deben producir triángulos verdes sólidos.
                                              @activity[#:forevidence (list "BS-PL.3&1&2" "BS-DR.2&1&1" "F-BF.1-2&1&1" "F-IF.1-3&1&2" "F-IF.1-3&1&4")]{
                                                        En tu libro, escribe dos ejemplos propios para esta función.}}
                                     @teacher{@bold{Be sure to point out that EXAMPLE is capitalized, and that all examples are written in the definitions area.} Many students will follow along here without really understanding, simply by pattern-matching. Be sure to ask them lots of questions, to have them justify each step:
@@ -402,7 +403,7 @@ Por ejemplo, en nuestros dos ejemplos @code{gt}, hemos rodeado el @italic{size} 
                                              step of the @bold{definition} by referring to the Examples. The same variable name can be used in multiple
                                              functions, just as in math (where many functions use @code{x} as the variable name, for example)}
                                     }
-                            @point{@student{Pensando en el problema de palabras paso a paso, llegamos a:
+                            @point{@student{Pensando en el ejercicio de aplicación paso a paso, llegamos a:
                                              @code[#:multi-line ""]{; bc : Number -> Image
 (EXAMPLE (bc     16) (circle     16 "solid" "blue"))
 (EXAMPLE (bc    421) (circle    421 "solid" "blue"))
@@ -426,7 +427,7 @@ Por ejemplo, en nuestros dos ejemplos @code{gt}, hemos rodeado el @italic{size} 
                                     @teacher{}
                                     }
                              @point{
-                                    @student{Pensando en el problema de palabras paso a paso, llegamos a: @code[#:multi-line ""]{; dot : String -> Image
+                                    @student{Pensando en el ejercicio de aplicación paso a paso, llegamos a: @code[#:multi-line ""]{; dot : String -> Image
                                                                     (EXAMPLE (dot  "red") (circle 15 "solid"  "red"))
                                                                     (EXAMPLE (dot "blue") (circle 15 "solid" "blue"))
                                                                     (define  (dot  color) (circle 15 "solid"  color))}}
