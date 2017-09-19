@@ -1,6 +1,5 @@
 #lang curr/lib
 
-@declare-tags[group selftaught]
 @title{Unidad 7: Ramificación condicional}
 
 @unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt}) 

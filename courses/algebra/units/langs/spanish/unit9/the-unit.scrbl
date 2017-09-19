@@ -1,7 +1,5 @@
 #lang curr/lib
 
-@declare-tags[]
-
 @title{Unidad 9: Preparación para el lanzamiento}
 
 @unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt})

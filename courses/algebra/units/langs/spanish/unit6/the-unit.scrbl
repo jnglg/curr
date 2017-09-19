@@ -1,5 +1,4 @@
 #lang curr/lib
-@declare-tags[]
 
 @title{Unidad 6: Enseñando Funciones para Comparar}
 

@@ -1,8 +1,6 @@
 #lang curr/lib
 @title{Unidad 8: Detección de colisiones}
 
-@declare-tags[]
-
 @unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt})
                                        (list "String" @code{string-append string-length})
                                        (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image})
