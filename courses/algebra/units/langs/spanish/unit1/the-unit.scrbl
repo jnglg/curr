@@ -2,7 +2,7 @@
 
 @title{Unidad 1: Videojuegos y Planos Cartesianos}
 
-@unit-overview/auto[#:lang-table (list (list "" @code{}))]{
+@unit-overview/auto[#:lang-table (list (list "" @code{} ""))]{
   @unit-descr{Los estudiantes discuten los componentes de sus videojuegos favoritos y descubren que pueden ser reducidos a una serie de coordenadas. A continuación, exploran las coordenadas en el espacio cartesiano, e identifican las coordenadas de los personajes en un juego en varios puntos en el tiempo. Una vez que se sienten cómodos con las coordenadas, ellos hacen una lluvia de ideas sobre sus propios juegos y crean listas de coordenadas de muestra para diferentes puntos en el tiempo en su propio juego.}
 }
 @unit-lessons{
