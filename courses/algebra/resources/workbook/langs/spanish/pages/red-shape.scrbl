@@ -2,7 +2,7 @@
  #lang curr/lib
 
 @(design-recipe-exercise "red-shape" 
-"Escribe una funciÛn llamada forma- roja, que toma el nombre de una forma y dibuja esa forma (sÛlida y roja).  Agregue una cl·usula else que produzca una salida sensible. " 
+"Escribe una funci√≥n llamada forma- roja, que toma el nombre de una forma y dibuja esa forma (s√≥lida y roja).  Agregue una cl√°usula else que produzca una salida sensible. " 
 
 			 #:domain-list (list "string")
 			 #:range "image"

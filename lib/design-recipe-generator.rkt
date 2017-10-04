@@ -303,7 +303,7 @@
   (let ([input (if (empty? in-out-list) "" (list->spaced-string (all-but-last in-out-list)))]
         [output (if (empty? in-out-list) "" (format-exercise-text (last in-out-list)))])
     (interleave-parbreaks/all
-     (list (make-spacer (string-append "(" ( translate 'design-example-caps ) " "))
+     (list (make-spacer "(EXAMPLE ") ;(string-append "(" ( translate 'design-example-caps ) " "))
            (make-spacer "(")
            (make-wrapper
             (dr-student-answer #:id? #f "recipe_name" #:show? show-funname? funname)
