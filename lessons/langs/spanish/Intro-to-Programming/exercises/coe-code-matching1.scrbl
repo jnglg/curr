@@ -23,7 +23,7 @@
 
 @(exercise-handout 
   #:title "Círculos coincidentes de evaluación y código"
-  #:instr "Dibuje una línea desde cada círculo de evaluación a la izquierda hasta el código correspondiente a la derecha".
+  #:instr "Dibuje una línea desde cada círculo de evaluación a la izquierda hasta el código correspondiente a la derecha."
   #:forevidence (exercise-evid-tags "BS-CE&1&4")
   @(matching-exercise expr-coes (map sexp->code permuted-exprs))
   @(exercise-answers
