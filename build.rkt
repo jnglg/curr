@@ -38,7 +38,7 @@
 (current-deployment-dir (root-deployment-dir))
 
 ;;This lists all courses which are currently able to be built
-(define available-course-specs '(("algebra" "english" "spanish")
+(define available-course-specs '(("algebra" "english" "spanish" "fr")
                                  ("algebra-pyret" "english")
                                  ("reactive" "english")
                                  ("data-science" "english")
@@ -174,7 +174,7 @@
 (define (parse-lang-args args)
   (filter (lambda (arg)
             (unless (member arg available-languages)
-                (error "Build got unrecognized target language: " arg " -- expected english or spanish"))
+                (error "Build got unrecognized target language: " arg " -- expected english or spanish or fr"))
             (member arg available-languages))
             args))
 
@@ -192,11 +192,11 @@
 
 (units '())
 
-(define available-languages (list "english" "spanish"))
+(define available-languages (list "english" "spanish" "fr"))
 
 (define bootstrap-course-specs available-course-specs)
 
-(define run-languages (list "english" "spanish"))
+(define run-languages (list "english" "spanish" "fr"))
 
 (define run-exercises? #t)
 
@@ -556,7 +556,8 @@
                      ;;     on this hacky use of define-runtime-paths from paths.rkt, which have to be deliberately selected based on the langauge being used
                      [exer-dir (build-path (match (getenv "LANGUAGE")
                                              ["english" lessons-dir-alt-eng]
-                                             ["spanish" lessons-dir-alt-spa])
+                                             ["spanish" lessons-dir-alt-spa]
+                                             ["fr" lessons-dir-alt-fra])
                                              lesson-name "exercises")]
                      [exer-deploy-dir (build-path (root-deployment-dir) "lessons" (getenv "LANGUAGE") lesson-name "exercises")])
                 (parameterize [(current-deployment-dir exer-dir)]

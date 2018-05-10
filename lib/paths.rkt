@@ -19,6 +19,8 @@
   (build-path 'up "lessons"  "langs" "english"))
 (define-runtime-path lessons-dir-alt-spa
   (build-path 'up "lessons"  "langs" "spanish"))
+(define-runtime-path lessons-dir-alt-fra
+  (build-path 'up "lessons"  "langs" "fr"))
 
 (define-runtime-path courses-base
   (build-path 'up "courses"))
