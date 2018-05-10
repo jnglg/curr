@@ -16,7 +16,7 @@
 
 @(exercise-handout 
   #:title "Creating Circles of Evaluation from Arithmetic Expressions"
-  #:instr "For each math expression on the left, draw its Circle of Evaluation on the right."
+  #:instr "Pour chaque expression arithmétique dans la colonne de gauche, dessine le cercle d'évaluation correspondant dans la colonne de droite."
   #:forevidence (exercise-evid-tags "BS-CE&1&1" "BS-CE&1&2")
   @(open-response-exercise (map sexp->math exprs) "circeval")
   @(exercise-answers
