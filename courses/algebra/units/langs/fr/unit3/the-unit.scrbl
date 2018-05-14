@@ -1,38 +1,41 @@
 #lang curr/lib
 
-@title{Unit 3: Introduction to Definitions}
+@title{Leçon 3. les définitions}
 
-@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt} "1 ,4 ,44.6")
-                                       (list "String" @code{string-append string-length} "\"hello\""   )
-                                       (list "Image"  @code{rectangle circle triangle ellipse star text scale rotate put-image} "(circle 25 \"solid\" \"red\")" ))]{
-  @unit-descr{Students are introduced to the Definitions area, and learn the syntax for defining values of various types.  They are also introduced to the syntax of defining functions and creating examples.}
+@unit-overview/auto[#:lang-table (list (list "Number" @code{+ - * / sqr sqrt expt} "1 ,4 ,44.6") 
+                                       (list "String" @code{string-append string-length} " \"hello\" ")                          
+                                       (list "Image"  @code{rectangle circle triangle ellipse star scale rotate put-image} "(circle 25 \"solid\" \"red\")"))]{
+  @unit-descr{On présente aux élèves la fenêtre des définitions et ils apprennent la syntaxe permettant de définir des valeurs de types variés. Ils apprennent aussi à définir des fonctions et à créer des exemples.}
 }
 @unit-lessons{
 @lesson/studteach[
-     #:title "Review"
+     #:title "Révisions"
      #:duration "5 minutes"
      #:overview ""
      #:learning-objectives @itemlist[]
      #:evidence-statements @itemlist[]
      #:product-outcomes @itemlist[]
      #:standards (list "BS-PL.2" "6.NS.5-8" "F-IF.1-3")
-     #:materials @itemlist[@item{Pens/pencils for the students, fresh whiteboard markers for teachers}
+     #:materials @itemlist[ @item{Computer for each student (or pair), running WeScheme or DrRacket with the  bootstrap-teachpack installed}
+                            @item{Student @resource-link[#:path "workbook/StudentWorkbook.pdf" #:label "workbooks"], and something to write with}                          
+                            @item{Fresh whiteboard markers for teachers}
                             @item{Class poster (List of rules, language table, course calendar)}
-                            @item{Language Table (see below)}]
-     #:preparation @itemlist[@item{OPTIONAL: Hand out @(hyperlink "https://docs.google.com/document/d/1FN2uLBnwdk3N4Ci6-qf1n6z-M8KpToo27wqZmRlS5as/edit?usp=sharing" "Warmup activity sheet").}]
+                              @item{Overhead projector}
+                          ]
+     #:preparation @itemlist[@item{OPTIONAL: Hand out @(hyperlink "https://docs.google.com/document/d/1FN2uLBnwdk3N4Ci6-qf1n6z-M8KpToo27wqZmRlS5as/edit?usp=sharing" "Warmup activity sheet")}
+     
+                            ]
      #:pacings (list 
                 @pacing[#:type "remediation"]{@itemlist[@item{}]}
                 @pacing[#:type "misconception"]{@itemlist[@item{}]}
                 @pacing[#:type "challenge"]{@itemlist[@item{}]}
                 )
       ]{
-        @points[@point{@student{So far, you've seen the Circles of Evaluation, learned about Contracts and experimented with multiple
-                                datatypes. Make sure you remember what each of those are, and look back at previous lessons for a refresher 
-                                if you need.
+        @points[@point{@student{@noSlideText{Jusqu’à maintenant, tu as vu les cercles d’évaluation, les contrats et tu as pu expérimenter avec des types de données variés. Il faut bien te rappeler de ce que sont toutes ces choses, n’hésite pas à revenir en arrière pour te rafraîchir la mémoire si besoin.}
                                 @activity[#:forevidence (list "BS-PL.2&1&1" "6.NS.5-8&1&2")]{
-                                     Can you think of three functions that draw shapes? See if you can write their contracts without
-                                     needing to look back at your Contracts page. What type of data is always surrounded in quotes?
-                                     What are the coordinates for the bottom left-hand corner of the screen? What about the top-right?
+                                     Peux-tu penser à trois fonctions qui dessinent des formes ? Essaie d’écrire leurs contrats sans
+                                     regarder la page récapitulative des contrats. Quel est le type de données qui est toujours entre guillemets ?
+                                     Quelles sont les coordonnées du coin inférieur gauche de l’écran ? Du coin inférieur droit ?
                                      }
                                 }
                         @teacher{Review Circles of Evaluation, paying special attention to @vocab{types} and @vocab{contracts}. 
@@ -42,7 +45,7 @@
 
        
 @lesson/studteach[
-     #:title "Defining Variables"
+     #:title "Définir des variables"
      #:duration "10 minutes"
      #:overview "Students define names for simple values (Numbers, Strings and Images) and use them in expressions."
      #:learning-objectives @itemlist[]
@@ -51,10 +54,7 @@
                                       @item{Students will be able to explain what happens when the "Run" button is pressed.}]
      #:product-outcomes @itemlist[]
      #:standards (list "BS-PL.3" "BS-IDE")
-     #:materials @itemlist[@item{Pens/pencils for the students, fresh whiteboard markers for teachers}
-                            @item{Class poster (List of rules, language table, course calendar)}
-                            @item{Editing environment (WeScheme or DrRacket with the bootstrap-teachpack installed)}
-                            @item{Language Table (see below)}]
+     
      #:preparation @itemlist[]
      #:prerequisites (list "Intro to Programming" "Contracts")
      #:pacings (list 
@@ -63,53 +63,48 @@
                 @pacing[#:type "challenge"]{@itemlist[@item{}]}
                 )
       ]{
-        @points[@point{@student{Suppose we want to make an image that had fifty identical, solid red triangles. You would have to write 
-                                @code{(triangle 50 "solid" "red")} fifty times! To make matters worse, any change to those triangles would 
-                                have to be repeated for all fifty expressions! Good programmers know that their effort is better spent 
-                                elsewhere, so they made sure that programming languages have a way to avoid all that repetition.  
-                                They write something once, define it as a shortcut in the language, and then use the shortcut wherever they want.}
+        @points[@point{@student{Imaginons couloir dessiner une image avec cinquante triangles rouges pleins identiques. Il faudrait écrire
+                                @code{(triangle 50 "solid" "red")} cinquante fois ! @noSlideText{Et, ce qui n’arrange pas les choses, chaque modification sur ces triangles devrait être répétée pour chacune des cinquante expressions ! Les bons programmeurs savent bien qu’ils ont mieux à faire, alors ils s’arrangent pour que les langages de programmation disposent d’un moyen pour éviter ces répétitions. Quand ils écrivent quelque chose, c’est une seule fois, ils le définissent par un raccourci dans le langage, et ensuite ils peuvent utiliser le raccourci quand ça leur chante !}}
                         @teacher{}}
-                 @point{@student{We name values in our language using @vocab{define} statements.  Let's look at 
-                                                                      @editor-link[#:definitions-text "(define shape1 (triangle 50 \"solid\" \"red\"))\n"
-                                                               #:interactions-text ""
-                                                               "an example of a definition"]
-                               , that defines @code{shape1} to be a solid red triangle. When you click "Run", you can evaluate @code{shape1}
-                               in the Interactions area and the computer will show you the triangle. What do you think would happen if you
-                               evaluated @code{shape1} @italic{without} clicking "Run"?
-                               }
-                         @teacher{Make sure students see what happens when @code{shape1} is evaluated without first clicking "Run", so they
-                                 can read and understand the error. Similarly, have them change the definition and evaluate @code{shape1}
+                 @point{@student{Dans notre langage, nous pouvons donner des noms aux valeurs à l’aide d’instructions @vocab{define}. Voyons par exemple 
+                                @editor-link[#:definitions-text "(define forme1 (triangle 50 \"solid\" \"red\"))\n" "an example of a definition, that defines"] @code{(define forme1 (triangle 50 "solid" "red"))}
+                               Cette définition définit @code{forme1} comme une triangle plein rouge. En cliquant sur "Run", tu vas évaluer @code{forme1}
+                               dans la fenêtre des interactions et l’ordinateur va t’afficher le triangle. Mais à ton avis, que se passera-t-il si tu
+                               évalues @code{forme1} @italic{sans} cliquer sur "Run"?}
+                               
+                         @teacher{Make sure students see what happens when @code{forme1} is evaluated without first clicking "Run", so they
+                                 can read and understand the error.  Similarly, have them change the definition and evaluate @code{forme1}
                                  again - still without clicking "Run". It's important for them to understand that running a program
                                  causes the computer to @italic{read the definitions}, and that any change requires it to re-read them.
                                  }
                         }
-                 @point{@student{Definitions go in the left area in your editor. This is called the @vocab{Definitions area}.        
+                 @point{@student{On écrit les définitions dans la zone de gauche de l’éditeur. C’est ce qu’on appelle la @vocab{zone, ou fenêtre des définitions}.        
                                @activity[#:forevidence (list "BS-PL.3&1&1")]{
-                                     @itemlist[@item{Enter the @code{shape1} definition into the @vocab{Definitions area}.}
-                                                @item{Click "Run" to have the computer read that definition.}
-                                                @item{What do you think will happen when you evaluate @code{shape1} in the Interactions area?}
-                                                @item{Add a new line to the definitions area, just below the definition of @code{shape1}. Add a new 
-                                                      definition called @code{shape2}, and define it to be a solid, blue circle of radius 20.}
-                                                @item{Click "Run", and try evaluating @code{shape2.}}
-                                                @item{On the next line, define a new value called @code{age} to be the number of years old that you are.}
-                                                @item{On the next line, define a new value called @code{name} to be the String that represents your name.}]
+                                     @itemlist[@item{Entre la définition de @code{forme1} dans la @vocab{fenêtre des définitions}.}
+                                                @item{Clique sur "Run" pour que l’ordinateur lise cette définition.}
+                                                @item{À ton avis, que se passera-t-il si tu évalues @code{forme1} dans la zone des interactions ?}
+                                                @item{Dans la fenêtre des définitinos, ajoute sur une nouvelle ligne, juste en-dessous de la définition de @code{forme1}, ajoute
+                                                      une nouvelle définition appelée @code{form2}, et fais en sorte qu’elle définisse un disque (plein), bleu, de rayon 20.}
+                                                @item{Clique "Run" et essaie d’évaluer @code{form2.}}
+                                                @item{Sur une nouvelle ligne, définis une nouvelle valeur appelée @code{age} qui soit ton âge.}
+                                                @item{Sur la ligne suivante, définis une nouvelle valeur appelée @code{name} qui soit ton prénom.}]
                                       }
                                
-                               @bannerline{Each time "Run" is clicked, the computer reads all of the definitions and adds them to the language. If a 
-                                      definition is changed, the computer will keep using the previous definition until the next time "Run" is clicked.}
+                               @bannerline{À chaque fois qu’on clique sur "Run", l’ordinateur lit toutes les définitions et les ajoute au langage. Quand on
+                                      change une définition, l’ordinateur continue d’utiliser l’ancienne jusqu’à ce qu’on clique à nouveau sur "Run".}
                           }
                          @teacher{}
                         }
                  @point{@student{@activity[#:forevidence (list "BS-PL.3&1&1" "BS-IDE&1&2")]{
-                                    One a new line in the Definitions area, define a value called @code{eye-color} to be the color of your eyes.  
-                                    Don't hit "Run" yet!  
-                                    @itemlist[@item{Go into the Interactions area and try evaluating @code{eye-color}.  You should get an error 
-                                                    message that the computer doesn't know about @code{eye-color}, because you didn't click "Run" 
-                                                    after adding the definition.}
-                                              @item{Click "Run".}
-                                              @item{Try asking for @code{eye-color} in the Interactions area again.  This time, you should not get the error.}]}
-                                 Definitions are useful because we can reuse them in other expressions.  For example, we could use @code{eye-color} 
-                                 inside another expression, such as @code{(circle 10 "solid" eye-color)}.  Let's practice using definitions inside other expressions.
+                                    Sur une nouvelle ligne dans la zone des définitions, définis une valeur appelée @code{couleur-yeux} pour la couleur de tes yeux.
+                                    Ne clique pas encore sur "Run" !
+                                    @itemlist[@item{Va dans la fenêtre des interactions et essaie d’évaluer @code{couleur-yeux}. Tu devrais obtenir un
+                                                    message comme quoi l’ordinateur ne sait pas ce que sait que @code{couleur-yeux}, parce que tu n'as pas cliqué sur "Run"
+                                                    après avoir saisi la définition.}
+                                              @item{Clique sur "Run".}
+                                              @item{Tape à nouveau @code{couleur-yeux} dans la fenêtre des interactions.Cette fois, il ne devrait plus y avoir d’erreur.}]}
+                                 Definitions are useful because we can reuse them in other expressions.  For example, we could use @code{couleur-yeux} 
+                                 inside another expression, such as @code{(circle 10 "solid" couleur-yeux)}.  Let's practice using definitions inside other expressions.
                                  }
                         @teacher{}
                         }
@@ -132,14 +127,14 @@
 }
        
 @lesson/studteach[
-     #:title "Defining Variables (Algebra)"
+     #:title "Définir des variables (algèbre)"
      #:duration "10 minutes"
      #:overview ""
      #:learning-objectives @itemlist[]
      #:evidence-statements @itemlist[]
      #:product-outcomes @itemlist[]
      #:standards (list "7.EE.3-4" "A-SSE.1-2")
-     #:materials @itemlist[@item{"Algebra Translation" [@resource-link[#:path "source-files/Algebra.rkt" #:label "DrRacket"] | @(hyperlink "http://www.wescheme.org/openEditor?publicId=s2s0tkTgeF" "WeScheme")] preloaded on students' machines, with monitors off.}]
+     #:materials @itemlist[@item{"Algebra Translation" [@resource-link[#:path "source-files/Algebra.rkt" #:label "DrRacket"] | @(hyperlink "http://www.wescheme.org/openEditor?publicId=s2s0tkTgeF" "WeScheme")] preloaded on students' machines}]
      #:preparation @itemlist[]
      #:prerequisites (list "Defining Variables")
      #:pacings (list 
@@ -154,7 +149,7 @@
                                                                 (define y (+ 4 9))
                                                                 (define z (* x 2))}}
                              Values can be fixed (like the first example), the result of an expression (the second), or even be defined in terms of other 
-                             variables (the third). We can do the same things in algebra:
+                             variables (the third).  We can do the same things in algebra:
                              @bannerline{@math{x = 4}
                                           @math{y = 4+9}
                                           @math{z = x \times 2}}
@@ -176,7 +171,7 @@
          }
      
 @lesson/studteach[
-     #:title "Game Images"
+     #:title "Les images du jeu"
      #:duration "30 minutes"
      #:overview "Students define values in their videogames"
      #:learning-objectives @itemlist[]
@@ -184,10 +179,11 @@
      #:product-outcomes @itemlist[@item{Students will name their videogame project}
                                   @item{Students will modify the definitions for @code{TITLE, TITLE-COLOR, BACKGROUND, PLAYER, TARGET} and @code{DANGER}}]
      #:standards (list "BS-PL.3")
-     #:materials @itemlist[@item{Student @resource-link[#:path "workbook/StudentWorkbook.pdf" #:label "workbook"] folders with names on covers.}]
-     #:preparation @itemlist[@item{Students are logged into WeScheme.org, OR have opened DrRacket.}
-                             @item{Create student game files. [See the teacher's guide, located in the @(hyperlink "../../resources/teachers/" "protected materials") for this course.]}
-                              @item{On student machines: Student Game Files (generated from "Game" template [Game.rkt from @resource-link[#:path "source-files.zip" #:label "source-files.zip"] | @(hyperlink "http://www.wescheme.org/openEditor?publicId=qAGwmaRXYy" "WeScheme")])}]
+     #:materials @itemlist[]
+     #:preparation @itemlist[@item{Students are logged into WeScheme.org, OR have opened DrRacket}
+                             @item{Create student game files [See the teacher's guide, located in the @(hyperlink "../../resources/teachers/" "protected materials") for this course]}
+                              @item{On student machines: Student Game Files (generated from "Game" template [Game.rkt from @resource-link[#:path "source-files.zip" #:label "source-files.zip"] | @(hyperlink "http://www.wescheme.org/openEditor?publicId=qAGwmaRXYy" "WeScheme")])}
+                              @item{OPTIONAL: @(hyperlink "https://teacher.desmos.com/activitybuilder/custom/5a15e27ee904510a5a9a0faa" "Desmos Activity: Unit 3 Review")}]
      #:prerequisites (list "Defining Variables" "Strings and Images" "Brainstorming")
      #:pacings (list 
                 @pacing[#:type "remediation"]{@itemlist[@item{}]}
@@ -197,9 +193,9 @@
       ]{
         @points[@point{@student{@activity{Open the videogame file (Game.rkt from @resource-link[#:path "source-files.zip" #:label "source-files.zip"]
                                           or @editor-link[#:public-id "RHBJYscAWj" "the online template"] so that you can see the code,
-                                          and click "Run". (You may need to wait a few seconds for the images to load!) The area that
+                                          and click "Run".  (You may need to wait a few seconds for the images to load!) The area that
                                           appears is a running videogame, but you probably notice that nothing is moving - even if you 
-                                          hit the "up" or "down" arrows! For now, click the "close" button to return to the code.}
+                                          hit the "up" or "down" arrows!  For now, click the "close" button to return to the code.} 
                                  This file contains a list of definitions, where you will get to define how your game characters look, move, and interact. As you scroll down to the bottom, you'll see a bunch of 
                                  dummy definitions that have been filled in for you. It is up to @italic{you} to come up with definitions for your own game!
                                  }
@@ -222,7 +218,7 @@
                                   The purpose of this activity is to increase students' confidence in @italic{reading} and @italic{talking about} code. 
                                   Make sure students get a lot of practice speaking aloud, both to each other and to the instructor.}
                         }
-                 @point{@student{If you don't like the definitions provided here, you can change them! You can modify the @code{TITLE} and @code{TITLE-COLOR} 
+                 @point{@student{If you don't like the definitions provided here, you can change them!  You can modify the @code{TITLE} and @code{TITLE-COLOR} 
                                     to change what is displayed at the top of your screen, and you can change the definitions for your game images as well. 
                                     (You can upload new image files by clicking the "Images" button in the toolbar, then selecting "upload" from the resulting popup).}
                          @teacher{Images should be in PNG or GIF format. Background images should be 640x480, and character images should generally be 
@@ -257,7 +253,7 @@
          }
        
 @lesson/studteach[
-     #:title "Defining Functions"
+     #:title "Définir des fonctions"
      #:duration "20 minutes"
      #:overview "Students are get a taste of the Design Recipe, but primarily they're introduced to the syntax for function definition."
      #:learning-objectives @itemlist[@item{Students will be able to define very simple functions, given a simple word problem.}]
@@ -268,7 +264,7 @@
                        (make-exercise-locator "Defining-Functions" "create-contracts-examples1")
                        (make-exercise-locator "Defining-Functions" "create-contracts-examples2"))
      #:standards (list "F-IF.1-3" "F-IF.4-6" "F-BF.1-2" "BS-PL.3" "BS-DR.1" "BS-DR.2" "BS-DR.3")
-     #:materials @itemlist[@item{Student @resource-link[#:path "workbook/StudentWorkbook.pdf" #:label "workbook"] folders with names on covers.}]
+     #:materials @itemlist[]
      #:preparation @itemlist[]
      #:prerequisites (list "Contracts" "Strings and Images" )
      #:pacings (list 
@@ -319,15 +315,14 @@
                                              error message from Racket for a malformed comment.  That also means that you have to check your students' 
                                              contracts more closely, because the computer will not check anything about them (format or contents).}
                                     }
-                            @point{@student{Word problems give several clues as to the name, Domain, and Range of a function.  Be sure to read the problem carefully! Some word problems will describe functions that take multiple inputs in their Domain, or inputs of different types.
+                            @point{@student{Word problems give several clues as to the name, Domain, and Range of a function.  @noSlideText{Be sure to read the problem carefully! Some word problems will describe functions that take multiple inputs in their Domain, or inputs of different types.}
                                             @activity[#:forevidence (list "BS-DR.1&1&1")]{
                                                               Open your workbook to @worksheet-link[#:name "Fast-Functions"], where it says 
                                                                                     "fast functions", and write the Contract for the @code{gt} function.}}
                                     @teacher{}
                                    }
                             @point{@student{@bannerline{Step 2: Give Examples}
-                                             It's always a good idea to think through a few examples before defining the function. Examples show 
-                                             the shortcut that a function is trying to provide.  This programming language provides a special 
+                                             @noSlideText{It's always a good idea to think through a few examples before defining the function. Examples show the shortcut that a function is trying to provide.}  This programming language provides a special 
                                              construct, called @code{EXAMPLE}, which helps you write down how the function is used and what it 
                                              should compute. You can see two such examples here, written under the contract:
                                              @code[#:multi-line ""]{; gt : Number -> Image
@@ -347,9 +342,7 @@
                                                         @item{How do we know the correct order for the inputs to @code{triangle}? (The contract for @code{triangle} tells us)}] 
                                                                                                                                                                           One of the big ideas here is that each step informs the subsequent step. Make sure to explicitly connect them for students, pointing out that the Contract gives strong hints about how to write each part of the examples. }
                                     }
-                            @point{@student{Programmers often write several examples for each function. Examples like these are a way for a 
-                                            programmer to think through their work.  Examples also make it easy to look at what parts of the
-                                            expression can change, or @italic{vary}, depending on the inputs.
+                            @point{@student{@noSlideText{Programmers often write several examples for each function. Examples like these are a way for a programmer to think through their work.}  Examples also make it easy to look at what parts of the expression can change, or @italic{vary}, depending on the inputs.
                                     @activity[#:forevidence (list "BS-DR.2&1&3" "F-IF.1-3&1&2" "F-IF.1-3&1&4" "F-IF.4-6&1&1")]{
                                                   Write the following examples on paper and circle the parts of the examples that are different:
                                              @code[#:multi-line ""]{(EXAMPLE (gt   50) (triangle   50 "solid" "green"))
@@ -384,11 +377,17 @@
                                                          @item{Click "Run", to have the computer read this definition.}
                                                          @item{Use the function you've defined, by typing @code{(gt 100)} in the Interactions area.}
                                                          @item{Try using the function with different Numbers}]}
-                                    @editor-link[#:definitions-text "; gt : Number -> Image
-(EXAMPLE (gt 50) (triangle 50 \"solid\" \"green\"))
-(EXAMPLE (gt 95) (triangle 95 \"solid\" \"green\"))
-(define (gt size) (triangle size \"solid\" \"green\"))"
-                                                 "Your answer should look something like this."]
+                                  @editor-link[#:definitions-text "; gt : Number -> Image
+                                    (EXAMPLE (gt 50) (triangle 50 \"solid\" \"green\"))
+                                    (EXAMPLE (gt 95) (triangle 95 \"solid\" \"green\"))
+                                    (define (gt size) (triangle size \"solid\" \"green\"))"
+                                    "Your answer should look something like this." ]
+
+                                    @code["; gt : Number -> Image
+                                    (EXAMPLE (gt 50) (triangle 50 \"solid\" \"green\"))
+                                    (EXAMPLE (gt 95) (triangle 95 \"solid\" \"green\"))
+                                    (define (gt size) (triangle size \"solid\" \"green\"))"]
+                                                       ]
                                     }
                                     @teacher{}
                                     }
@@ -448,7 +447,7 @@
 
 
 @lesson/studteach[
-     #:title "Defining Functions (Algebra)"
+     #:title "Définir des fonctions (algèbre)"
      #:duration "20 minutes"
      #:overview ""
      #:learning-objectives @itemlist[]
@@ -481,7 +480,7 @@
                  
                  
 @lesson/studteach[
-     #:title "Closing"
+     #:title "Fin"
      #:duration "5 minutes"
      #:overview ""
      #:learning-objectives @itemlist[]

@@ -22,23 +22,23 @@
                                      @item{Students will understand that @code{cond} statements capture pairs of questions and answers when coding a piecewise function}
                                     ]
      #:product-outcomes @itemlist[]
-     #:exercises (list (make-exercise-locator/dr-assess "Luigis-Pizza" "scale-shape-design-recipe-assess" "Scaling Shapes")
-                       (make-exercise-locator/dr-assess "Luigis-Pizza" "state-tax-design-recipe-assess" "Compute Tax")
-                       (make-exercise-locator/dr-assess "Luigis-Pizza" "flower-name-design-recipe-assess" "Name That Flower")
-                       (make-exercise-locator/dr-assess "Luigis-Pizza" "turkey-price-design-recipe-assess" "How Much is That Turkey?")
+     #:exercises (list (make-exercise-locator/file "Luigis-Pizza" "scale-shape-design-recipe-assess" "Check this Design Recipe: Scaling Shapes")
+                       (make-exercise-locator/file "Luigis-Pizza" "state-tax-design-recipe-assess" "Check this Design Recipe: Compute Tax")
+                       (make-exercise-locator/file "Luigis-Pizza" "flower-name-design-recipe-assess" "Check this Design Recipe: Name That Flower")
+                       (make-exercise-locator/file "Luigis-Pizza" "turkey-price-design-recipe-assess" "Check this Design Recipe: How Much is That Turkey?")
 		       )
      #:standards (list "BS-DR.1" "BS-DR.2" "BS-DR.3" "BS-PL.4")
-     #:materials @itemlist[@item{Computers w/ DrRacket or WeScheme}
-                           @item{Student @(resource-link #:path "workbook/StudentWorkbook.pdf" #:label "workbook")}
-                           @item{Pens/pencils for the students, fresh whiteboard markers for teachers}
-                           @item{Class posters (List of rules, basic skills, course calendar)}
-                           @item{Language Table (see below)}
+     #:materials @itemlist[ @item{Computer for each student (or pair), running WeScheme or DrRacket with the  bootstrap-teachpack installed}
+                            @item{Student @resource-link[#:path "workbook/StudentWorkbook.pdf" #:label "workbooks"], and something to write with}
+                            @item{Class poster (List of rules, language table, course calendar)}
+                            @item{Overhead projector}
                           ]
-     #:preparation @itemlist[@item{Students are logged into WeScheme.org, OR have opened DrRacket.}
+     #:preparation @itemlist[@item{Students are logged into WeScheme.org, OR have opened DrRacket}
                              @item{"Luigi's Pizza" [LuigisPizza.rkt from @(resource-link #:path "source-files.zip" 
-                                                                                       #:label "source-files.zip") |
-@(hyperlink "http://www.wescheme.org/openEditor?publicId=SW6F5joQYc" "WeScheme")] preloaded on students' machines, and on the projector}
-                              @item{REQUIRED: Hand out @(hyperlink "https://docs.google.com/document/d/1k67XlYWkHefd4APynvwSnPKRaSTeOvGD7_lRbI8hHrg/edit?usp=sharing" "Luigi's Pizza Worksheet").}]
+                                                                                       #:label "source-files.zip") 
+@(hyperlink "http://www.wescheme.org/openEditor?publicId=JUXrqT0UT5" "WeScheme")] preloaded on students' machines, and on the projector}
+                              @item{REQUIRED: Hand out @(hyperlink "https://docs.google.com/document/d/1k67XlYWkHefd4APynvwSnPKRaSTeOvGD7_lRbI8hHrg/edit?usp=sharing" "Luigi's Pizza Worksheet")}
+                              @item{OPTIONAL: @(hyperlink "https://teacher.desmos.com/activitybuilder/custom/5a2ddf70edfc8975f63b14b7" "Desmos Activity: Unit 7 & 8 Review")}]
      #:prerequisites (list "The Design Recipe" "and/or")
      #:pacings (list 
                 @pacing[#:type "remediation"]{@itemlist[@item{}]}
@@ -95,13 +95,18 @@
                      abbreviated in the code as @code{cond}.}
              @teacher{}
              }
-     @point{@student{Each conditional has at least one @vocab{clause}. Each clause has a Boolean question and a result. In Luigi's function, there is a clause for cheese, another for pepperoni, and so on. If the question evaluates to @code{true}, the expression gets evaluated and returned. If the question is @code{false}, the computer will skip to the next clause. 
+     @point{@student{Each conditional has at least one @vocab{clause}. Each clause has a Boolean question and a result.
+                          In Luigi's function, there is a clause for cheese, another for pepperoni, and so on.
+                          If the question evaluates to @code{true}, the expression gets evaluated and returned.
+                          If the question is @code{false}, the computer will skip to the next clause. 
                      @activity[#:forevidence (list "BS-PL.4&1&1")]{
                                Look at the @code{cost} function: 
                                @itemlist[@item{How many clauses are there for the @code{cost} function?}
                                          @item{Identify the question in the first clause.}
                                          @item{Identify the question in the second clause.}]}}
-            @teacher{Square brackets enclose the question and answer for each clause.  When students identify the questions, they should find the first expression within the square brackets.  There can only be one expression in each answer.}
+            @teacher{Square brackets enclose the question and answer for each clause.
+                            When students identify the questions, they should find the first expression within the square brackets.
+                            There can only be one expression in each answer.}
            }
      @point{@student{The last clause in a conditional can be an @code{else} clause, which gets evaluated if all the questions are @code{false}. 
                       @activity[#:forevidence (list "BS-PL.4&1&1")]{
@@ -118,16 +123,16 @@
            }
      @point{@student{Functions that use conditions are called @vocab{piecewise functions}, because each condition defines a 
                      separate @italic{piece} of the function. Why are piecewise functions useful?  Think about the player in your game: you'd like the
-                     player to move one way if you hit the "up" key, and another way if you hit the "down" key. Moving up and moving down need two
+                     player to move one way if you hit the "up" key, and another way if you hit the "down" key.  Moving up and moving down need two
                      different expressions!  Without @code{cond}, you could only write a function that always moves the player up, or always moves it
                      down, but not both.}
             @teacher{}
            }
-     @point{@student{Right now the @code{else} clause produces a String, even though the Range of the function is Number. Do you think this is a problem? 
+     @point{@student{Right now the @code{else} clause produces a String, even though the Range of the function is Number.  Do you think this is a problem? 
                      Why or why not? As human beings, having output that breaks that contract might not be a problem: we know that the functions will
                      produce the cost of a pizza or an error message. But what if the output of this code didn't go to humans at all? What if we want to use
                      this function from within some other code? Is it possible that @italic{that} code might get confused? To find out, uncomment the last 
-                     line of the program @code{(start cost} by removing the semicolon. When you click "Run", the simulator will use @code{cost} function
+                     line of the program @code{(start cost} by removing the semicolon.  When you click "Run", the simulator will use @code{cost} function
                      to run the cash register. See what happens if you order off the menu!
                      @activity{To fix this, let's change the @code{else} clause to return a really high price. After all, if the customer is willing to pay
                       a million bucks, Luigi will make whatever pizza they want!}}
@@ -151,8 +156,7 @@
                                     ]
      #:product-outcomes @itemlist[@item{Students will write @code{update-player}, which moves their player in response to key-presses}]
      #:standards (list "A-SSE.1-2" "BS-DR.2" "BS-DR.3")
-     #:materials @itemlist[@item{Student @(resource-link #:path "workbook/StudentWorkbook.pdf" #:label "workbook")}
-                           @item{All student computers should have their game templates pre-loaded, with their image files linked in}]
+     #:materials @itemlist[]
      #:preparation @itemlist[]
      #:prerequisites (list "Luigi's Pizza" "Danger and Target Movement")
      #:pacings (list 

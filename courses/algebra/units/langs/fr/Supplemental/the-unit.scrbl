@@ -12,18 +12,11 @@
 
 @unit-lessons{
 @;TRANSLATORS: please write your lanuage where it says english in these four functions (all lower case)
-@;(done for spanish)    
-@(include-lesson (lib "curr/lessons/langs/spanish/Manipulating-Images/lesson/lesson.scrbl"))
-@(include-lesson (lib "curr/lessons/langs/spanish/Making-Flags/lesson/lesson.scrbl"))
-@(include-lesson (lib "curr/lessons/langs/spanish/Function-Example-Red-Shape/lesson/lesson.scrbl"))
-@(include-lesson (lib "curr/lessons/langs/spanish/Structs/lesson/lesson.scrbl"))
-@(include-lesson (lib "curr/lessons/langs/spanish/Simple-Ideas/lesson/lesson.scrbl"))
-
 @;(done for french)    
-@(include-lesson (lib "curr/lessons/langs/french/Manipulating-Images/lesson/lesson.scrbl"))
-@(include-lesson (lib "curr/lessons/langs/french/Making-Flags/lesson/lesson.scrbl"))
-@(include-lesson (lib "curr/lessons/langs/french/Function-Example-Red-Shape/lesson/lesson.scrbl"))
-@(include-lesson (lib "curr/lessons/langs/french/Structs/lesson/lesson.scrbl"))
-@(include-lesson (lib "curr/lessons/langs/french/Simple-Ideas/lesson/lesson.scrbl"))
+@(include-lesson (lib "curr/lessons/langs/fr/Manipulating-Images/lesson/lesson.scrbl"))
+@(include-lesson (lib "curr/lessons/langs/fr/Making-Flags/lesson/lesson.scrbl"))
+@(include-lesson (lib "curr/lessons/langs/fr/Function-Example-Red-Shape/lesson/lesson.scrbl"))
+@(include-lesson (lib "curr/lessons/langs/fr/Structs/lesson/lesson.scrbl"))
+@(include-lesson (lib "curr/lessons/langs/fr/Simple-Ideas/lesson/lesson.scrbl"))
 
 }
