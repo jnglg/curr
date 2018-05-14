@@ -1,5 +1,5 @@
 
-;;SPANISH
+;; French / Français
 ;;The section headers refer to the sections of the output webpages generated. Note that
 ; there are comments for translators to indicate what each phrase is and where exactly it
 ; is located, and there are separate comments for developers to see where the statements
@@ -19,7 +19,7 @@
     ;Translator; this is a label to a button that flips things. Should be brief command
     ;                TODO: UNSURE OF LOCATION               ;
     ;Developer; insert-student-buttons
-    (btn-flip "flip")
+    (btn-flip "retourne")
 
 
     
@@ -33,9 +33,9 @@
     ;;;;;;;;;;;;;;;;;languages;;;;;;;;;;;;;;;;;;;;
     ;Translator; these are the labels for links to bootstrap pages in other languages.
                ; These should be the titles of languages as spoken in this language (right now, English)
-    (english "English")
-    (spanish "Spanish")
-    (french "French")
+    (english "Anglais")
+    (spanish "Espagnol")
+    (fr "Français")
 
     
     
@@ -105,7 +105,7 @@
     ;;
     ;Translator; This is a section header found within design recipe exercise pages
     ;Developer; design-recipe-exercise
-    (design-section-examples "Examples")
+    (design-section-examples "Exemples")
 
     ;Translator; This is a subsection header found immediately below the section head directly above in this file^^^^
     ;Developer; design-recipe-exercise
@@ -117,7 +117,7 @@
     ;;
     ;Translator; This is a section header found within design recipe exercise pages
     ;Developer; design-recipe-exercise
-    (design-section-def "Definition")
+    (design-section-def "Définition")
 
     ;Translator; This is a subsection header found immediately below the section head directly above in this file^^^^
     ;Developer; design-recipe-exercise
@@ -128,7 +128,7 @@
     ;Translator; This is found within the body of the Examples section of Design Recipe pages; It is the all-caps beginning (following
                ; an open paren) to examples of function calls
     ;Developer; design-recipe-exercise
-    (design-example-caps "EXAMPLE")
+    (design-example-caps "EXEMPLE")
 
 
 
@@ -139,9 +139,9 @@
     ;Translator; These labels DO NOT currently appear, but would provide labels to the three parts of "Contract" structure, in this order, found in Unit 3. Examples
                ; of this can be found in pages 9 and 10 and the student workbook
     ;Developer; This is printed only when generating a pdf or tex version of the exercise worksheets; HTML ignores it.
-    (contract-name "Name")
-    (contract-domain "Domain")
-    (contract-range "Range")
+    (contract-name "Nom")
+    (contract-domain "Domaine de définition")
+    (contract-range "Ensemble de valeurs")
 
 
 
@@ -152,7 +152,7 @@
                ; This would appear in the solution key to a matching exercise. This indicates the correct answer is the statement
                ; following this key, rather than a command for a student to provide an answer
     ;Developer; attach-exercise-answer
-    (exercise-answer "Answer")
+    (exercise-answer "Réponse")
 
     ;Translator; This appears in the solution document to matching exercises in the right column when nothing in
                ; the left column matches with it. This can be seen in the teacher solutions to matching exercises in Unit 1
@@ -167,12 +167,12 @@
 
     ;Translator; This is going in the title of example handouts (either prepended to a title or standing alone as the title)
     ;Developer; exercise-handout
-    (exercise "Exercise")
+    (exercise "Exercice")
 
     ;Translator; This goes before the directions provided to students on exercise handouts
     ;Developer; exercise-handout & design-recipe-exercise (in design-recipe-generator.rkt)
     ;                           TODO: Why is this called twice?                       ;
-    (directions "Directions")
+    (directions "Consigne")
     
 
                   ;;;Special Keywords;;;
@@ -180,12 +180,12 @@
                ; be specially italicized. Therefore, the translations given below should match the translations used
                ; when entering the instructions to generate an exercise handout
     ;Developer; exercise-terms-to-italicize
-    (c-eval "Circle of Evaluation")
-    (low-a-exp "arithmetic Expression")
-    (cap-a-exp "Arithmetic Expression")
+    (c-eval "Cercle d'évaluation")
+    (low-a-exp "expression arithmétique")
+    (cap-a-exp "Expression arithmétique")
     (exp "Expression")
-    (example "Example")
-    (contract "Contract")
+    (example "Exemple")
+    (contract "Contrat")
     (code "code")
 
     
@@ -207,7 +207,7 @@
     ;Translator; This is the word that goes at the very top of the page, indicating what unit it is. IT will
                ; followed by the number of what unit it is. Example: "Unit 3"
     ;Developer; unit-summary-links
-    (unit "Unit")
+    (unit "Unité")
 
 
 
@@ -217,10 +217,10 @@
     ;Developer; insert-teacher-toggle-button
 
     ;Translator;
-    (btn-show "Mostrar Notas")
-    (btn-hide "Hide Teacher Notes")
-    (btn-group "Discussion Group")
-    (btn-slide "Slides")
+    (btn-show "Voir les notes pour le prof")
+    (btn-hide "Cacher les notes")
+    (btn-group "Groupe de discussion")
+    (btn-slide "Diapos")
 
 
 
@@ -234,7 +234,7 @@
     ;Translator; This is found directly above the Glossary in the intro section. This indicates the total
                ; the total time of the unit lesson
     ;Developer; length-of-lesson
-    (length "Length")
+    (length "Durée")
     (minutes "Minutes")
 
     
@@ -244,8 +244,8 @@
     ;Translator; Headers of the Bootstrap Language Table
     ;Developer; language-table
     (lang-table-types "Types")
-    (lang-table-func "Functions")
-    (lang-table-vals "Values")
+    (lang-table-func "Fonctions")
+    (lang-table-vals "Valeurs")
 
 
 
@@ -286,7 +286,7 @@
 
     ;Translator; This is the Glossary header
     ;Developer; gen-glossary
-    (iHeader-glossary "Glossary")
+    (iHeader-glossary "Glossaire")
 
      ;Translator; This is the overview header, which is repressed by css
     ;Developer; lesson/studteach
@@ -304,12 +304,12 @@
     ; These are also used within lesson/studteach because they are the same phrases
     (iHeader-materials "Materials and Equipment")
     ;Developer; lesson/studteach
-    (iHeader-mat "Materials")
+    (iHeader-mat "Matériel")
     (iHeader-learning "Learning Objectives")
     (iHeader-evidence "Evidence Statementes")
     (iHeader-product "Product Outcomes")
-    (iHeader-exercises "Exercises")
-    (iHeader-preparation "Preparation")
+    (iHeader-exercises "Exercices")
+    (iHeader-preparation "Préparation")
     ;Developer; learn-evid-from-standards
     (iHeader-standards "Standards and Evidence Statements")
 
@@ -322,13 +322,13 @@
                ;;;Additional Exercises;;;
     ;Translator; This is the label for the additional exercises found at the bottom of unit pages
     ;Developer; gen-exercises
-    (add-exer "Additional Exercises")
+    (add-exer "Exercices supplémentaires")
 
 
     ;Translator; This is the label for additional exercises that come from teacher contributions,
                ; found at bottom of unit pages. NOTE: This is not yet live as of 07/06/17.
     ;Developer; form-elements: TODO
-    (add-teacher-contr "Additional Exercises from Bootstrap Teachers")
+    (add-teacher-contr "Exercices supplémentaires issus d'autres professeurs")
     
     ;Translator; This is something added to certain exercise link titles (See Unit 4 for examples)
                ; This is a directive.

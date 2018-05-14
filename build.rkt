@@ -43,7 +43,7 @@
                                  ("reactive" "english")
                                  ("data-science" "english")
                                  ("physics" "english")
-                                 ;("blank-course" "english")
+                                 ("blank-course" "english" "fr")
 				 ))
 (define available-courses (map (lambda (course-spec) (first course-spec)) available-course-specs))
 
